@@ -1,0 +1,8 @@
+[2026-07-11 12:22:49,504] INFO [QuorumController id=1] Fencing broker 1 because its session has timed out. (org.apache.kafka.controller.ReplicationControlManager)
+[2026-07-11 12:22:52,164] INFO [QuorumController id=1] handleBrokerFenced: changing 1 partition(s) (org.apache.kafka.controller.ReplicationControlManager)
+[2026-07-11 12:22:52,165] INFO [QuorumController id=1] Replayed BrokerRegistrationChangeRecord modifying the registration for broker 1: BrokerRegistrationChangeRecord(brokerId=1, brokerEpoch=7, fenced=1, inControlledShutdown=0, logDirs=[]) (org.apache.kafka.controller.ClusterControlManager)
+[2026-07-11 12:22:52,168] INFO [QuorumController id=1] processBrokerHeartbeat: event unable to start processing because of TimeoutException. (org.apache.kafka.controller.QuorumController)
+[2026-07-11 12:22:52,169] ERROR [QuorumController id=1] processExpiredBrokerHeartbeat: controller event queue overloaded. Timed out heartbeat from broker 1. (org.apache.kafka.controller.ReplicationControlManager)
+[2026-07-11 12:22:52,414] INFO [QuorumController id=1] The request from broker 1 to unfence has been granted because it has caught up with the offset of its register broker record 7. (org.apache.kafka.controller.BrokerHeartbeatManager)
+[2026-07-11 12:22:52,415] INFO [QuorumController id=1] handleBrokerUnfenced: changing 1 partition(s) (org.apache.kafka.controller.ReplicationControlManager)
+[2026-07-11 12:22:52,415] INFO [QuorumController id=1] Replayed BrokerRegistrationChangeRecord modifying the registration for broker 1: BrokerRegistrationChangeRecord(brokerId=1, brokerEpoch=7, fenced=-1, inControlledShutdown=0, logDirs=[]) (org.apache.kafka.controller.ClusterControlManager)

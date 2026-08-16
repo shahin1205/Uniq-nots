@@ -1,0 +1,68 @@
+PriorityQueue (class)
+---------------------
+1) What is PriorityQueue?
+
+PriorityQueue is a class in Java that implements the Queue interface, 
+	but instead of following FIFO (First In, First Out),
+it arranges elements based on priority (natural order or custom comparator).
+
+-> Elements with higher priority come out first.
+-> It does not maintain insertion order.
+
+Introduced in Java 1.5
+
+Present in package java.util
+
+Based on a Binary Heap (min-heap by default)
+
+Duplicates allowed
+
+Null elements NOT allowed
+
+Not thread-safe (use PriorityBlockingQueue for concurrency)
+
+3) Internal Working
+
+Internally uses a binary heap (array-based) structure:
+
+Root element is always the smallest (or highest priority).
+
+When you add or remove, the heap is adjusted automatically.
+
+formula :
+Parent      = (i - 1) / 2
+
+4) Constructors
+PriorityQueue<Integer> pq1 = new PriorityQueue<>(); // natural order (min-heap)
+PriorityQueue<Integer> pq2 = new PriorityQueue<>(Comparator.reverseOrder()); // max-heap
+PriorityQueue<Integer> pq3 = new PriorityQueue<>(50); // initial capacity
+
+5) Important Methods:
+| Method             | Description                                              |
+| ------------------ | -------------------------------------------------------- |
+|  offer(E e)        | Inserts element according to priority                    |
+|  peek()            | Returns highest-priority element (head) without removing |
+|  poll()            | Removes and returns head (highest priority)              |
+|  remove(Object o)  | Removes specific element                                 |
+|  size()            | Number of elements                                       |
+|  isEmpty()         | Checks if empty                                          |
+
+Types of heaps:
+---------------
+1. Natural Ordering (Min-Heap)
+2. Custom Priority (Max-Heap)
+
+6) When to Use PriorityQueue?
+
+You need to process elements based on priority (not insertion order)
+Task schedulers
+
+Job processing systems
+
+7) Comparison:
+| Feature      | Queue               | PriorityQueue                  |
+| ------------ | ------------------- | ------------------------------ |
+| Order        | FIFO                | Based on priority              |
+| Null allowed | Yes (in some impl.) | No                             |
+| Duplicates   | Yes                 | Yes                            |
+| Thread-safe  | No                  | No (use PriorityBlockingQueue) |

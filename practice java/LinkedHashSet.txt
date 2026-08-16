@@ -1,0 +1,53 @@
+LinkedHashSet:
+--------------
+LinkedHashSet is a Set implementation that maintains insertion order of elements.
+
+It combines the hashing mechanism of HashSet (for fast access) and 
+the linked list mechanism (for maintaining order).
+
+Present in java.util package.
+
+Introduced in JDK 1.4.
+
+Internal Structure:
+-------------------
+LinkedHashSet = HashSet + LinkedHashMap
+
+Internally uses a LinkedHashMap instead of HashMap.
+
+Each element is stored as a key in the LinkedHashMap.
+
+The values are dummy constants (just like HashSet uses PRESENT).
+
+The LinkedHashMap maintains a doubly-linked list of entries to preserve insertion order.
+
+HashSet  → HashMap
+LinkedHashSet → LinkedHashMap
+
+| Feature      | Description                                           |
+| ------------ | ----------------------------------------------------- |
+| Duplicates   |  Not allowed                                          |
+| Null element |  Allowed (only one)                                   |
+| Order        |  Maintains **insertion order**                        |
+| Backed by    | LinkedHashMap                                         |
+| Thread-safe  |  Not synchronized                                     |
+| Performance  | Slightly slower than HashSet (because of linked list) |
+
+Constructors:
+-------------
+LinkedHashSet<E> lhs = new LinkedHashSet<>();
+LinkedHashSet<E> lhs = new LinkedHashSet<>(initialCapacity);
+LinkedHashSet<E> lhs = new LinkedHashSet<>(initialCapacity, loadFactor);
+LinkedHashSet<E> lhs = new LinkedHashSet<>(anotherCollection);
+
+Important Methods:
+
+| Method               | Description                         |
+| -------------------- | ----------------------------------- |
+|  add(E e)            | Adds element if not already present |
+|  remove(Object o)    | Removes element                     |
+|  contains(Object o)  | Checks presence                     |
+|  size()              | Returns number of elements          |
+|  isEmpty()           | Checks if empty                     |
+|  clear()             | Removes all elements                |
+|  iterator()          | Returns iterator in insertion order |

@@ -1,0 +1,95 @@
+
+jakarta project cretae 
+
+new projekt 
+
+file name
+set location 
+Archetype: org.apache.maven.archetypes:maven-archetype-webapp
+
+advance seting 
+com.Pakage-name
+--------------------------------------------------------------------------------------
+settings la 
+------------
+plugings -> marketPlace -> smartTomcat install
+
+--------------------------------------------------------------------------------
+
+src-> webapp-> WEB-INF-> web.xml
+
+go to google search (web app version 6.0) -> select (stack Overflow) 
+
+https://stackoverflow.com/questions/74679259/jakarta-ee-10-eclipse-dynamic-web-module-missing-version-6-0
+
+add
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+        xmlns="https://jakarta.ee/xml/ns/jakartaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+        version="6.0">
+  <display-name>AppName</display-name>
+
+</web-app>
+
+-------------------------------------------------------------------------------
+
+pom.xml
+--------
+
+google seach (maven dependencies)-> chuse (maven repositry) -> search (jakarta servlet)-> (chuse Jakarta Servlet API)
+
+https://mvnrepository.com/search?q=jakarta+servlte
+
+----------------------
+add dependencies
+-----------------
+<!-- Source: https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+ 
+------------------------------
+above dependencies add the vertion
+-----------------------------------
+<properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+
+------------------------------
+
+search (apache tomcat 10 download)->  select (apache tomcat 10 software download)->  apache tomcat 10 downlode 64-bit
+
+https://tomcat.apache.org/download-10.cgi
+-----------------------------------------------
+
+last ah current fail click panni athuku kila iruka EditConfiguration click pannni Tomcat server la Apache Tomcat 10 add pannanum athu namba already net la iruthu downlod pannirukanum anth path select pannanum  
+
+
+jun 1 
+--------
+
+jakarta la end point creat panna poram 
+
+friday create panna fail la src la main la right click panni java folder create pannanum next athukulla oru packeage create pannanum next athula class create pannanum 
+
+src->main -> com.packeag-name -> class -> class name 
+------------------------------------------------------
+anatha class la 
+
+@WebServlet("/hello")
+public class Enpoint extends HttpServlet {
+    @Override
+    public  void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        PrintWriter out=res.getWriter();
+        out.println("hello world");
+    }
+}

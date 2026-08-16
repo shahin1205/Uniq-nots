@@ -1,0 +1,903 @@
+6. Thread Life Cycle:
+----------------------
+A thread in Java goes through several states:
+
+|   State           |   Description                                                                                  |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+|   NEW             | Thread object is created but  start()  not yet called.                                         |
+|   RUNNABLE        | After  start()  is called; thread is ready and waiting for CPU time. (Running is part of this) |
+|   RUNNING         | Thread is currently executing on CPU (conceptual state, inside RUNNABLE).                      |
+|   BLOCKED         | Thread is waiting to acquire a monitor lock to enter a  synchronized  block/method.            |
+|   WAITING         | Thread is waiting indefinitely for another thread action ( wait() ,  join() ).                 |
+|   TIMED_WAITING   | Thread is waiting for a specific time ( sleep() ,  wait(timeout) ,  join(timeout) ).           |
+|   TERMINATED      | Thread has completed execution ( run()  finished).                                             |
+
+Thread Scheduler:
+------------------
+Part of the JVM (Java Virtual Machine).
+It decides which thread from the runnable to executes first.
+The Thread Scheduler in Java uses a Ready Queue (Runnable Queue)
+
+It depends on:
+1. Thread priority (setPriority()).
+2. arrival time.
+
+
+
+--------------------------------------------------------------------------------------------------
+
+Synchronization:
+----------------
+-> Synchronization in Java is a mechanism to control 
+		the access to shared resources.
+-> synchronization is important to make sure multiple 
+	threads safely work on shared resources.
+-> In java synchronized key word is used to achieve 
+		synchronization.
+
+How many ways to achieve synchronization:
+-----------------------------------------
+1. synchronized non-static method
+	
+	public synchronized void add()
+	{
+		
+	}
+2. static synchronized method
+    
+	public synchronized static void add()
+	{
+		
+	}
+3. synchronized block
+	
+	public void add()
+	{
+		synchronized(this)
+		{
+		
+		}
+	}
+
+-------------------------------------------------------------------------------
+Inter-thread Communication:
+---------------------------
+It means two or more threads talking to each other to work together.
+
+| Method        | Meaning                                                           |
+| ------------- | ----------------------------------------------------------------- |
+|  wait()       | Thread goes to   waiting state  (it stops and releases the lock). |
+|  notify()     | Tells   one waiting thread   to wake up.                          |
+|  notifyAll()  | Tells   all waiting threads   to wake up.
+
+
+-----------------------------------------------------------------------------------------------
+
+DeadLock:
+---------
+-> Deadlock is one the situation in multithreading, where two or more threads 
+	are waiting for each other to release a lock.
+-> A set of threads are waiting for each other in a circular chain.
+		
+-> how deadlock occurs ?
+   -> Thread T1 locks Resource A and waits for Resource B 
+   -> Thread T2 locks Resource B and waits for Resource A
+      Now both threads are blocked forever this is a deadlock
+	  
+	How to Prevent Deadlock ?
+	-> Avoid unnecessary synchronization
+	-> use inter-thread-communication like wait and notify.
+
+----------------------------------------------------------------------------------
+
+Daemon Thread:
+--------------
+-> A daemon thread is a service provider Thread (background thread) that runs in support 
+	of other non-daemon(user) threads.
+-> When all user threads are done -> JVM automatically terminates -> all daemon threads 
+	stop immediately.
+	
+create daemon Thread using :
+t1.setDaemon(true);
+t2.setDaemon(true);
+
+--------------------------------------------------------------------------------------
+
+
+
+Design patterns:
+----------------
+Design patterns in Java are reusable, proven solutions to 
+commonly occurring problems in software design. 
+They are not specific pieces of code but rather templates or blueprints 
+that help developers create flexible, maintainable, and scalable 
+object-oriented applications.
+
+1. Creational Patterns:
+-----------------------
+These patterns deal with object creation aiming to create objects in a manner 
+suitable for the situation while hiding the instantiation logic.
+
+Singleton:
+----------
+	> Ensures a class has only one instance and provides a global point of access to it.
+		Problem solved:
+		---------------
+		You want only one object of a class to exist in entire application 
+			(e.g., config, cache, logger).
+Factory Method:
+---------------
+	> Defines an interface for creating an object, but lets subclasses 
+		decide which class to instantiate.
+		Problem solved:
+		---------------
+		> You want to create objects without exposing creation logic
+			and allow subclasses/factory to decide which class to create.
+		> switching one object to another is easy.
+Abstract Factory:
+-----------------
+	> Provides an interface for creating families of related 
+		or dependent objects without specifying their concrete classes.
+		Problem solved:
+		---------------
+		You need to create families of related objects together
+		without knowing their concrete classes.
+Builder:
+--------
+	> Separates the construction of a complex object from its representation, 
+		allowing the same construction process to create different representations.
+		Problem solved:
+		---------------
+		Object has many optional parts and should be built step-by-step
+		so that same process can build different versions.
+Prototype:
+----------
+	> Creates new objects by copying an existing object (the prototype).
+	Problem solved:
+	---------------
+	Creating an object is expensive or complex — instead of rebuilding,
+	you clone an existing object.
+
+------------------------------------------------------------------------------------
+
+Wrapper Class
+-------------
+-> A wrapper class is a class provided in java.lang package that allows primitive values 
+	to be treated as objects.
+-> Wrapper classes are immutable (values cannot be changed)
+-> Auto-boxing/unboxing simplifies code readability
+-> Boxing/unboxing may cause performance overhead if used excessively
+
+Purpose: To convert (wrap) primitive data types into objects 
+	— useful in Collections, Generics, and OOP features.
+	
+	wrapper classes
+	----------------
+	byte - Byte
+	int - Integer
+	short - Short
+	long - Long
+	float - Float
+	double - Double
+	char - Character
+	boolean - Boolean
+
+
+Wrapper class hierarchy
+------------------------
+except character and boolean all the wrapper classes extends 
+Number class, the number class is one of the abstract class
+the abstract methods precented like,
+	> intValue
+	> floatValue
+	> doubleValue
+	> byteValue
+	> shortValue
+	
+Boxing & Auto-Boxing (Primitive → Object):
+------------------------------------------
+1) Boxing (Manual Conversion):
+int i = 10;
+Integer y = Integer.valueOf(i);
+
+2) Auto Boxing (Automatic by Compiler):
+int i = 20;
+Integer x = i; // internally → Integer.valueOf(i)
+
+Unboxing & Auto-Unboxing (Object → Primitive):
+----------------------------------------------
+1) Unboxing (Manual Conversion):
+Integer num = 20;
+int x = num.intValue();
+2) Auto Unboxing (Automatic by Compiler):
+Integer num = 20;
+int x = num; // internally → num.intValue()
+System.out.println(x);
+	
+Why Wrapper Classes are Needed?
+-> For Collections like List, Set, Map (they store only objects)
+-> For Generics
+-> For Methods requiring Objects
+-> For Utility methods (Integer.parseInt(), Double.valueOf(), etc.)
+-> For providing constants (like Integer.MAX_VALUE, Boolean.TRUE)
+
+1) Collections Framework (List, Set, Map):
+Collections cannot store primitive types — only objects.
+List<Integer> numbers = new ArrayList<>();
+numbers.add(10);   // auto boxing
+numbers.add(20);
+Without wrapper class this is not possible:
+List<int> list; // Compile-time error
+
+2) Generics — only work with objects:
+class Box<T> {
+    T value;
+}
+
+Box<Integer> b = new Box<>();
+Box<int> b2 = new Box<>();  // not allowed
+
+3) Utility Methods (Parsers and Converters):
+String s = "100";
+int x = Integer.parseInt(s);   // String → int
+Integer y = Integer.valueOf(s);// String → Integer
+
+4) Constants and Helper Methods:
+System.out.println(Integer.MIN_VALUE);
+System.out.println(Integer.MAX_VALUE);
+
+Commonly Used Constants in Wrapper Classes:
+-------------------------------------------
+Constance values:
+-----------------
+MAX_VALUE, 
+MIN_VALUE,  
+BYTES, 
+SIZE,
+TYPE,
+POSITIVE_INFINITY -> double
+NEGATIVE_INFINITY -> double
+NAN -> double, float // not a number
+TRUE/FALSE -> Boolean
+
+Helper methods:
+---------------
+1) String to Number Conversion:
+int n = Integer.parseInt("25");
+double d = Double.parseDouble("12.34");
+boolean b = Boolean.parseBoolean("true");
+
+2) Number to String Conversion:
+String s1 = Integer.toString(50);
+String s2 = Double.toString(10.5);
+
+3) Value of (Creates Wrapper Object):
+Integer x = Integer.valueOf(100);
+Double y = Double.valueOf("10.25");
+
+4) Comparing Wrapper Values:
+Integer a = 10, b = 20;
+System.out.println(a.compareTo(b)); // -1 (a < b)
+System.out.println(a.equals(b));    // false
+
+5) Convert to Different Base (Binary 2, Hex 16, Octal 8,):
+System.out.println(Integer.toBinaryString(10)); // 1010
+System.out.println(Integer.toHexString(255));   // ff
+System.out.println(Integer.toOctalString(64));  // 100
+
+6) Checking Range or Property:
+System.out.println(Character.isDigit('5')); 0 - 9   // true
+System.out.println(Character.isLetter('A')); a-z A-Z // true
+System.out.println(Character.isUpperCase('A')); // true
+System.out.println(Character.toLowerCase('A')); // a
+
+Wrapper Class
+-------------
+-> A wrapper class is a class provided in java.lang package that allows primitive values 
+	to be treated as objects.
+-> Wrapper classes are immutable (values cannot be changed)
+-> Auto-boxing/unboxing simplifies code readability
+-> Boxing/unboxing may cause performance overhead if used excessively
+
+Purpose: To convert (wrap) primitive data types into objects 
+	— useful in Collections, Generics, and OOP features.
+	
+	wrapper classes
+	----------------
+	byte - Byte
+	int - Integer
+	short - Short
+	long - Long
+	float - Float
+	double - Double
+	char - Character
+	boolean - Boolean
+
+
+Wrapper class hierarchy
+------------------------
+except character and boolean all the wrapper classes extends 
+Number class, the number class is one of the abstract class
+the abstract methods precented like,
+	> intValue
+	> floatValue
+	> doubleValue
+	> byteValue
+	> shortValue
+	
+Boxing & Auto-Boxing (Primitive → Object):
+------------------------------------------
+1) Boxing (Manual Conversion):
+int i = 10;
+Integer y = Integer.valueOf(i);
+
+2) Auto Boxing (Automatic by Compiler):
+int i = 20;
+Integer x = i; // internally → Integer.valueOf(i)
+
+Unboxing & Auto-Unboxing (Object → Primitive):
+----------------------------------------------
+1) Unboxing (Manual Conversion):
+Integer num = 20;
+int x = num.intValue();
+2) Auto Unboxing (Automatic by Compiler):
+Integer num = 20;
+int x = num; // internally → num.intValue()
+System.out.println(x);
+	
+Why Wrapper Classes are Needed?
+-> For Collections like List, Set, Map (they store only objects)
+-> For Generics
+-> For Methods requiring Objects
+-> For Utility methods (Integer.parseInt(), Double.valueOf(), etc.)
+-> For providing constants (like Integer.MAX_VALUE, Boolean.TRUE)
+
+1) Collections Framework (List, Set, Map):
+Collections cannot store primitive types — only objects.
+List<Integer> numbers = new ArrayList<>();
+numbers.add(10);   // auto boxing
+numbers.add(20);
+Without wrapper class this is not possible:
+List<int> list; // Compile-time error
+
+2) Generics — only work with objects:
+class Box<T> {
+    T value;
+}
+
+Box<Integer> b = new Box<>();
+Box<int> b2 = new Box<>();  // not allowed
+
+3) Utility Methods (Parsers and Converters):
+String s = "100";
+int x = Integer.parseInt(s);   // String → int
+Integer y = Integer.valueOf(s);// String → Integer
+
+4) Constants and Helper Methods:
+System.out.println(Integer.MIN_VALUE);
+System.out.println(Integer.MAX_VALUE);
+
+Commonly Used Constants in Wrapper Classes:
+-------------------------------------------
+Constance values:
+-----------------
+MAX_VALUE, 
+MIN_VALUE,  
+BYTES, 
+SIZE,
+TYPE,
+POSITIVE_INFINITY -> double
+NEGATIVE_INFINITY -> double
+NAN -> double, float // not a number
+TRUE/FALSE -> Boolean
+
+Helper methods:
+---------------
+1) String to Number Conversion:
+int n = Integer.parseInt("25");
+double d = Double.parseDouble("12.34");
+boolean b = Boolean.parseBoolean("true");
+
+2) Number to String Conversion:
+String s1 = Integer.toString(50);
+String s2 = Double.toString(10.5);
+
+3) Value of (Creates Wrapper Object):
+Integer x = Integer.valueOf(100);
+Double y = Double.valueOf("10.25");
+
+4) Comparing Wrapper Values:
+Integer a = 10, b = 20;
+System.out.println(a.compareTo(b)); // -1 (a < b)
+System.out.println(a.equals(b));    // false
+
+5) Convert to Different Base (Binary 2, Hex 16, Octal 8,):
+System.out.println(Integer.toBinaryString(10)); // 1010
+System.out.println(Integer.toHexString(255));   // ff
+System.out.println(Integer.toOctalString(64));  // 100
+
+6) Checking Range or Property:
+System.out.println(Character.isDigit('5')); 0 - 9   // true
+System.out.println(Character.isLetter('A')); a-z A-Z // true
+System.out.println(Character.isUpperCase('A')); // true
+System.out.println(Character.toLowerCase('A')); // a
+
+
+------------------------------------------------------------------------------
+Collection framework
+---------------------
+1) What is a Framework?
+
+A framework in Java is a collection of predefined classes and interfaces that 
+gives a ready-made architecture so developers don’t need to build from scratch.
+
+2) What is Collection Framework?
+
+The Collection Framework in Java is a set of interfaces and classes used to 
+	store and process groups of objects (data).
+-> Introduced in JDK 1.2
+-> Present in package java.util
+-> Allows storing only objects (not primitives)
+-> Alternative to arrays
+
+3) Why do we need Collection Framework? (Advantages)
+| Problem with Arrays             | How Collection solves it                                  |
+| ------------------------------- | --------------------------------------------------------- |
+| Fixed size                      | Growable / dynamic size                                   |
+| Only homogeneous allowed        | Can store homogeneous or heterogeneous (without generics) |
+| No built-in data structures     | Provides ready-made structures: List, Set, Queue, Map     |
+| Manual algorithm implementation | Provides inbuilt methods and algorithms                   |
+
+4) Root Interface — Iterable
+
+Iterable is the top-most interface of the collection hierarchy.
+
+It provides:
+Iterator<T> iterator() → to traverse elements one by one
+default void forEach() → loop using lambda
+Spliterator<T> → supports parallel traversal
+All Collections must implement Iterable.
+
+5) Collection - Interface (Core Methods)
+Collection<E> is parent of List, Set, Queue (not Map).
+| Method                              | Purpose                       |
+| ----------------------------------- | ----------------------------- |
+|  int size()                         | returns number of elements    |
+|  boolean isEmpty()                  | checks if collection is empty |
+|  boolean contains(Object o)         | checks if element exists      |
+|  Iterator<E> iterator()             | returns iterator to traverse  |
+|  Object[] toArray()                 | converts to array             |
+|  boolean add(E e)                   | adds one element              |
+|  boolean addAll(Collection c)       | adds multiple elements        |
+|  boolean remove(Object o)           | removes one element           |
+|  boolean removeAll(Collection c)    | removes group of elements     |
+|  boolean containsAll(Collection c)  | checks for group existence    |
+|  void clear()                       | removes all elements          |
+|  Stream<E> stream()                 | supports stream API           |
+|  parallelStream()                   | process elements parallel     |
+
+
+6) When should we use Collection Framework?
+
+Use Collection Framework when you:
+-> deal with dynamic data
+-> require searching, sorting, insertion, deletion
+-> want to use standard data structures
+-> need ready-made algorithms.
+
+--------------------------------------------------------------------------
+
+List (Interface):
+-----------------
+List is a child interface of Collection that stores ordered elements and 
+	allows duplicate elements.
+	
+Maintains insertion order
+
+Allows duplicates
+
+Allows index-based access (like array)
+
+Allows null values
+
+2) List Interface Hierarchy:
+
+Iterable
+   └── Collection
+           └── List
+                ├── ArrayList
+                ├── LinkedList
+                ├── Vector
+                └── Stack (extends Vector)
+				
+3) Implementations of List
+| Implementation | Internal Structure           | Best for                      | Slow for                      |
+| -------------- | ---------------------------- | ----------------------------- | ----------------------------- |
+|   ArrayList    | Dynamic array                | Fast reading (get), iterating | Insert/delete in middle       |
+|   LinkedList   | Doubly linked list           | Insert/delete frequently      | Random access (get by index)  |
+|   Vector       | Dynamic array (synchronized) | Thread-safe operations        | Slower due to sync            |
+|   Stack        | LIFO (extends Vector)        | Last-In-First-Out             | Not used much now (use Deque) |
+
+4) Common Methods of List:
+
+| Method                  | Meaning                |
+| ----------------------- | ---------------------- |
+|  add(E e)               | Add element            |
+|  add(int index,E e)     | Add at specific index  |
+|  get(int index)         | Fetch element by index |
+|  set(int index,E e)     | Replace element        |
+|  remove(int index)      | Remove by index        |
+|  indexOf(Object o)      | First occurrence index |
+|  lastIndexOf(Object o)  | Last occurrence index  |
+|  subList(int from,to)   | Part of list           |
+|  trimeToSize()          |--------------
+5) When to Use List?
+
+Use List when:
+You want ordered data
+You need duplicate entries
+You want index based operations
+
+----------------------------------------------------------
+ArrayList (Class):
+------------------
+
+1) What is ArrayList?
+
+ArrayList is a resizable (dynamic) array implementation of the List interface in Java.
+
+Ordered collection (insertion order preserved)
+
+Allows duplicates
+
+Allows null values
+
+Not thread-safe (not synchronized)
+
+Fast for read operations (get, iteration)
+
+Slower for insert/remove in the middle
+
+
+2) how Internally Working ?
+
+Internally ArrayList uses a dynamic array like -> Object[] elementData;
+
+Default initial capacity = 10
+
+When size exceeds capacity:
+
+It creates a new array with 1.5 times 
+(old capacity * 1.5)
+
+Copies old elements into new array
+
+Example:
+Old capacity = 10 → new = 15
+Old capacity = 15 → new = 22
+
+3) Common Constructors:
+List<Integer> list1 = new ArrayList<>();         // default capacity 10
+List<Integer> list2 = new ArrayList<>(50);       // custom capacity
+List<Integer> list3 = new ArrayList<>(list2);    // copy another collection
+
+4) Frequently Used Methods:
+| Method                | Description            |
+| --------------------- | ---------------------- |
+|  add(E e)             | adds at end            |
+|  add(int index, E e)  | adds at specific index |
+|  get(int index)       | returns element        |
+|  set(int index, E e)  | replace element        |
+|  remove(int index)    | remove using index     |
+|  remove(Object o)     | remove using value     |
+|  contains(Object o)   | check existence        |
+|  size()               | current count          |
+|  clear()              | delete all             |
+
+5) Performance:
+---------------
+| Operation             | Performance           | Reason              |
+| --------------------- | --------------------- | ------------------- |
+|  get(i)               | Fast (O(1))           | Direct index access |
+|  add(e)               | Fast (Amortized O(1)) | Append at end       |
+|  add/remove at index  | Slow (O(n))           | Shifting elements   |
+|  search               | O(n)                  | Linear scan         |
+
+7) When to Use ArrayList?
+
+You need fast access using index
+
+More reads, less inserts/deletes
+
+Order matters & duplicates allowed.
+
+
+----------------------------------------------------------------------------------------------
+LinkedList (class):
+------------------
+
+1) What is LinkedList?
+
+LinkedList is a doubly linked list implementation of List and Deque interfaces.
+
+Maintains insertion order
+
+Allows duplicates & nulls
+
+Fast insertions/deletions in middle
+
+Slow for random access (get(index))
+
+It works on nodes instead of array.
+
+2) Internal Structure
+Each element is stored in a Node:
+
+private static class Node<E> {
+    E item;
+    Node<E> next;
+    Node<E> prev;
+}
+
+So each element has a reference to previous and next (doubly linked).
+
+3) Constructors
+List<String> list = new LinkedList<>();
+Deque<Integer> dq  = new LinkedList<>();
+(LinkedList also implements Deque, so it can be used as Queue or Stack)
+
+4) Performance
+
+| Operation               | LinkedList        | Why                              |
+| ----------------------- | ----------------- | -------------------------------- |
+| add/remove at head/tail | O(1)              | No shifting, just pointer change |
+| add/remove in middle    | O(1) once located | but locating takes O(n)          |
+| get(index)              | O(n)              | must traverse nodes sequentially |
+| contains()              | O(n)              | linear traversal                 |
+
+5) Useful Methods
+
+add(), add(index,e), get(), set(), remove()
+
+From Deque (extra features):
+
+addFirst(e), addLast(e)
+removeFirst(), removeLast()
+
+peekFirst(), peekLast()
+offer(), poll(), push(), pop()
+
+6) When to Use LinkedList?
+
+Frequent insert/delete in middle or ends
+
+Need Queue / Deque behavior
+
+Not much random access
+
+Avoid when:
+You need fast get(index) access — use ArrayList instead.
+----------------------------------------------------------------------------------------------------
+
+Map (interface):
+----------------
+Map is not a part of Collection hierarchy,
+but it is an important part of the Java Collection Framework.
+
+A Map stores data in the form of key-value pairs.
+Each key is unique, but values can be duplicate.
+
+Stores key-value pairs
+
+Keys must be unique
+
+Values can be duplicate
+
+Null keys/values allowed (depends on implementation)
+
+Not synchronized (except Hashtable)
+
+Cannot use index (no ordering like List)
+
+Internal Structure:
+-------------------
+class Node<K, V> {
+    final int hash;
+    final K key;
+    V value;
+    Node<K, V> next; // for collision (linked list)
+}
+
+How Data is Stored:
+map.put("Arun", 100);
+
+step 1 -> find hash code for key
+hash = hash("Arun");
+
+step 2 -> find bucket index
+index = hash % capacity
+
+Step 3 -> Check bucket
+If bucket empty → store new Node
+
+If key already exists → replace value
+
+If collision → append to linked list (or tree if list too long)
+
+Load Factor
+-----------
+Definition: Load factor = ratio of number of entries to capacity.
+loadFactor = size / capacity
+0/16 = 0.75 -> 75%
+
+
+Default load factor = 0.75
+
+Means when 75% of buckets are filled, HashMap rehashes (resizes).
+
+Example:
+
+capacity = 16
+
+load factor = 0.75
+→ threshold = 16 × 0.75 = 12
+So when 12th element added → HashMap resizes to 32 (doubles).
+
+
+2) Methods in Map Interface:
+| Method                        | Description                        |
+| ----------------------------- | ---------------------------------- |
+|  put(K key, V value)          | insert or replace value by key     |
+|  putAll(Map m)                | copy all entries from another map  |
+|  get(Object key)              | returns value for the given key    |
+|  remove(Object key)           | removes entry for key              |
+|  containsKey(Object key)      | checks key presence                |
+|  containsValue(Object value)  | checks value presence              |
+|  keySet()                     | returns all keys as Set            |
+|  values()                     | returns all values as Collection   |
+|  entrySet()                   | returns all key-value pairs as Set |
+|  size()                       | number of entries                  |
+|  clear()                      | removes all entries                |
+|  isEmpty()                    | checks if empty                    |
+
+Iterating a Map:
+-> keySet()
+-> values()
+-> entrySet()
+-> forEach()
+
+---------------------------------------------------
+
+1.Iterator:
+----------
+It is Known as Universal Cursor.
+Introduced in: JDK 1.2.
+Applicable for All collection classes like (List, Queue, Set, etc..).
+
+Methods of Iterator:
+| Method              | Description                                 |
+| ------------------- | ------------------------------------------- |
+|  boolean hasNext()  | Returns true if there is another element    |
+|  E next()           | Returns the next element                    |
+|  void remove()      | Removes the last element returned by next() |
+
+--------------------------------------------------------------------------------------
+
+2.ListIterator:
+---------------
+It is known as Bidirectional Cursor.
+Introduced in: JDK 1.2.
+Applicable only for: List implementations.
+ArrayList, LinkedList, Vector, Stack
+Can modify (add, set, remove) during iteration.
+
+| Method                  | Description                                 |
+| ----------------------- | ------------------------------------------- |
+|  boolean hasNext()      | Checks if next element exists               |
+|  E next()               | Moves forward and returns next element      |
+|  boolean hasPrevious()  | Checks if previous element exists           |
+|  E previous()           | Moves backward and returns previous element |
+|  int nextIndex()        | Returns index of next element               |
+|  int previousIndex()    | Returns index of previous element           |
+|  void remove()          | Removes current element                     |
+|  void add(E e)          | Adds element at current position            |
+|  void set(E e)          | Replaces current element                    |
+
+
+3. DescendingIterator:
+-----------------------
+It is used To iterate elements in reverse order (descending).
+Applicable only for: Navigable collections
+Mainly in (TreeSet, TreeMap, LinkedHashSet, ArrayDeque, ConcurrentLinkedDeque, NavigableSet).
+
+| Method              | Description                                            |
+| ------------------- | ------------------------------------------------------ |
+|  boolean hasNext()  | Returns true if more elements exist (in reverse order) |
+|  E next()           | Returns the next element (from end toward start)       |
+|  void remove()      | Removes the last element returned by  next()           |
+
+-------------------------------------------------------------------------------------------
+
+Fail fast:
+----------
+Iterator immediately throws an exception (ConcurrentModificationException) 
+if the collection is structurally modified during iteration 
+(other than via iterator’s own methods).
+
+ArrayList, HashMap, LinkedList, HashSet, TreeMap
+
+Iterator reads the collection directly. 
+It checks modification count (modCount) and fails if it changes.
+
+Faster because it directly iterates over the data.
+
+Not thread-safe.
+
+Modification During Iteration is not allowed.
+
+
+-----------------------------------------------------------------------------
+
+ConcurrentModificationException:
+---------------------------------
+ConcurrentModificationException is a runtime exception in Java 
+that occurs when a collection (like ArrayList, HashMap, etc.) 
+is structurally modified while iterating over it using an iterator, 
+except through the iterator's own remove() method.
+
+structural modification:
+-------------------------
+Adding or removing elements from the collection.
+(But not just updating an existing element.)
+
+list.add(element);   // structural modification
+list.remove(element); // structural modification
+list.set(1, "new");  // NOT structural modification
+
+How it happens internally?
+When you create an iterator on a collection (e.g. ArrayList), 
+the iterator takes a snapshot of the collection’s internal modCount 
+(modification count).
+
+int expectedModCount = modCount;
+
+Each time the collection is modified (add/remove), its modCount changes.
+
+then, every time you call iterator.next(), it checks:
+
+if (modCount != expectedModCount)
+    throw new ConcurrentModificationException();
+
+So if the collection is changed outside the iterator, the modCounts don’t match 
+and you get this exception.
+---------------------------------------------------------------------------------------------
+Fail-Safe:
+----------
+Iterator does not throw an exception even if the collection is 
+modified during iteration. It works on a copy of the original collection.
+
+concurrent packages like:
+ConcurrentHashMap, CopyOnWriteArrayList, CopyOnWriteArraySet
+
+Iterator works on a separate cloned copy of the collection,
+so modification in the original does not affect iteration.
+
+Slower because it works on a copy (more memory + time).
+
+Thread-safe (safe for concurrent access).
+
+Modification Allowed During Iteration is allowed.
+-------------------------------------------------------------------------------
+
+Thread-safe collection class:
+------------------------------
+
+| Non-thread-safe Class       | Thread-safe Alternative in java.util.concurrent  |
+| --------------------------- | -------------------------------------------------|
+| ArrayList                   | CopyOnWriteArrayList                             |
+| LinkedList                  | ConcurrentLinkedDeque                            |
+| Queue                       | ConcurrentLinkedQueue                            |
+| HashSet                     | CopyOnWriteArraySet ,  ConcurrentSkipListSet     | 
+| TreeSet                     | ConcurrentSkipListSet                            |
+| HashMap                     | ConcurrentHashMap                                |
+| TreeMap                     | ConcurrentSkipListMap                            |

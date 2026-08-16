@@ -1,0 +1,17 @@
+HashMap:
+--------
+> It's belongs to Map interface.
+> Map is one of the collection framework.
+> Map stores Key and Value pair.
+> can't working with index value.
+> but search is possible( contains )
+> It not allows duplicate keys but It supports one null key.
+> homogenous and heterogeneous supports.
+> It is not follows insertion order.
+> HashMap is uses data structures like dynamic Array and 
+	singly linked list
+> HashMap's internal table default size is 16
+> HashMap's internal table, if it reaches 75% capacity
+	automatically grow double the size.(16 -> 32)
+> HashMap's internal dynamic array's each index 
+	called bucket.

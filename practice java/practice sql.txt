@@ -1,0 +1,62 @@
+create database task;
+use task;
+create table company(
+company_id int primary key auto_increment,
+company_name varchar(100) not null,
+address text
+);
+drop table company;
+
+insert into company (company_name,address )value("google","This is the world number one company");
+insert into company (company_name,address )value("MicroSoft","This is the world largest company");
+insert into company (company_name,address )value("Zepto","This is the Indian company");
+insert into company (company_name,address )value("Meta","This is the AI bast company");
+insert into company (company_name,address )value("WhatsApp","This is the chat box company");
+
+select* from company;
+
+
+----------------------------------------------------------------------------------------------------
+
+
+create database task;
+use task;
+
+create table team(
+team_id int primary key auto_increment,
+team_name varchar(100) not null,
+team_lead_id int,
+team_lead_name varchar(100),
+descriptions longtext,
+department set("IT","HR","Tecnical-sapport","Manager","dev")
+);
+drop table team;
+insert into team(team_name,team_lead_id,team_lead_name,descriptions,department) value("java department",123 ,"shahin","this is the good team","dev");
+insert into team(team_name,team_lead_id,team_lead_name,descriptions,department) value("IT department",123 ,"mahin","this is the good team","It");
+insert into team(team_name,team_lead_id,team_lead_name,descriptions,department) value("Tecnical sapport department",123 ,"raja","this is the good team","Tecnical-sapport");
+insert into team(team_name,team_lead_id,team_lead_name,descriptions,department) value("Manager department",123 ,"mohammed","this is the good team","Manager");
+insert into team(team_name,team_lead_id,team_lead_name,descriptions,department) value("HR department",123 ,"rani","this is the good team","HR");
+
+select* from team;
+
+
+---------------------------------------------------------------------------------
+
+
+create database task;
+use task;
+create table employees(
+emp_id int primary key auto_increment,
+emp_name varchar(100),
+joining_date date,
+gender enum("male","female","others"),
+salary float(7,2)
+);
+drop table employees;
+insert into employees(emp_name,joining_date,gender,salary)value("shahin",'2022-05-12',"male",20000.00);
+insert into employees(emp_name,joining_date,gender,salary)value("mahin",'2021-05-12',"male",40000.00);
+insert into employees(emp_name,joining_date,gender,salary)value("ali",'2023-05-12',"male",30000.00);
+insert into employees(emp_name,joining_date,gender,salary)value("Mohammed",'2024-05-12',"male",50000.00);
+insert into employees(emp_name,joining_date,gender,salary)value("rani",'2025-05-12',"female",10000.00);
+
+select* from employees;

@@ -1,0 +1,209 @@
+package ProductOrder;
+
+public class Product {
+    int id;
+    String name;
+    double price;
+    String description;
+
+    public Product(int id, String name, double price, String description) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void displayProduct(){
+        System.out.print("Product name - "+ name);
+        System.out.print(" Product price - "+price);
+        System.out.println(" description - "+description);
+    }
+}
+
+
+
+
+-------------------------------------------------------------------------------------------------
+
+package ProductOrder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductService {
+
+    ArrayList<Product> products= new ArrayList<>();
+    public void addProduct(){
+        products.add(new Product(12,"Laptop",50000,"Good laptop"));
+        products.add(new Product(13,"phone",30000,"Good phone"));
+        products.add(new Product(14,"EarPhone",500,"Good EarPhone"));
+        products.add(new Product(15,"PowerBank",1500,"Good Power Bank"));
+    }
+
+    public ArrayList<Product> getallProduct( ){
+        return products;
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+
+package ProductOrder;
+
+public class OrderDetail {
+    int orderId;
+    int orderCount;
+    int quantity;
+    Product product;
+
+    public OrderDetail(int orderCount ,Product product,int quantity) {
+        this.orderId = 1000 +(int)(Math.random()*9000);
+        this.orderCount=orderCount;
+        this.product=product;
+        this.quantity=quantity;
+    }
+    public double totalPrice(){
+        return quantity*product.price;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getOrderName() {
+        return orderCount;
+    }
+
+    public void setOrderName(int orderCount) {
+        this.orderCount = orderCount;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void displayOrder(){
+        System.out.println("Order Id - "+ orderId);
+        System.out.println("Order Count - " + orderCount);
+        product.displayProduct();
+        System.out.print ("Quantity - "+ quantity);
+        System.out.println(" Total price - "+ totalPrice());
+
+    }
+}
+---------------------------------------------------------------------------------
+
+package ProductOrder;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class OrderDetailService {
+    ProductService productService=new ProductService();
+    public  Product searchProduct(String name, ArrayList<Product> products) {
+        productService.addProduct();
+        for (Product product : products) {
+            if (product.name.equalsIgnoreCase(name)) {
+                return product;
+            }
+        }
+        return null;
+    }
+    public static Scanner sc = new Scanner(System.in);
+
+    public void placeOrder() {
+        productService.addProduct();
+        int orderNumberCount=0;
+
+        while (true){
+            System.out.println("Do you want the order press 1 or Exit press 0");
+            int num= sc.nextInt();
+            sc.nextLine();
+
+            switch (num){
+                case 1:
+
+                    System.out.println("Enter the product name  : ");
+                    String productName = sc.nextLine();
+
+                    Product selectProduct = searchProduct(productName, productService.getallProduct());
+
+                    System.out.println("How many quantity do you want ");
+                    int productQuantity = sc.nextInt();
+
+                    ArrayList<OrderDetail> orders = new ArrayList<>();
+//int orderId,String orderName,int quantity
+
+                    if (selectProduct != null) {
+                      orderNumberCount++;
+                        orders.add(new OrderDetail( orderNumberCount, selectProduct, productQuantity));
+                    } else {
+                        System.out.println("product not found");
+                    }
+                    for (OrderDetail o : orders) {
+                        o.displayOrder();
+                    }
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Invalit in put");
+            }
+            }
+        }
+}
+
+-------------------------------------------------------------------------------------------------
+
+package ProductOrder;
+import java.util.Scanner;
+
+public class Main {
+
+    public static Scanner sc=new Scanner(System.in);
+    public static void main(String[] args) {
+        ProductService productService=new ProductService();
+        OrderDetailService orderDetailService=new OrderDetailService();
+        productService.addProduct();
+        orderDetailService.placeOrder();
+    }
+}

@@ -1,0 +1,66 @@
+HashSet:
+--------
+HashSet is a class in Java that implements the Set interface using hashing.
+It stores unique elements and 
+provides constant-time performance (O(1)) for add, remove, and search operations.
+It is part of the java.util package.
+
+Characteristics:
+----------------
+
+| Feature            | Description                                 |
+| ------------------ | ------------------------------------------- |
+| Duplicate elements |   Not allowed                               |
+| Null element       |   Allowed (only one)                        |
+| Order              |   Unordered (no insertion or sorting order) |
+| Thread-safe        |   Not synchronized                          |
+| Backed By          |  HashMap                                    |
+| Performance        | Very fast (O(1)) average time               |
+| Introduced in      | JDK 1.2                                     |
+
+Internal Structure:
+
+HashSet internally uses a HashMap where:
+
+Each element of the set is stored as a key in the HashMap
+
+The value for each key is a dummy constant object (usually PRESENT)
+
+example:
+
+private static final Object PRESENT = new Object();
+
+private transient HashMap<E,Object> map;
+
+public boolean add(E e)
+{
+    return map.put(e, PRESENT) == null;
+}
+
+Constructors:
+-------------
+HashSet<Integer> set1 = new HashSet<>();                // default
+HashSet<Integer> set2 = new HashSet<>(100);             // with initial capacity
+HashSet<Integer> set3 = new HashSet<>(100, 0.75f);      // with load factor
+HashSet<Integer> set4 = new HashSet<>(anotherCollection);
+
+Important Methods:
+------------------
+| Method               | Description                           |
+| -------------------- | ------------------------------------- |
+|  add(E e)            | Adds element if not already present   |
+|  remove(Object o)    | Removes the element                   |
+|  contains(Object o)  | Returns true if element exists        |
+|  size()              | Returns number of elements            |
+|  isEmpty()           | Checks if set is empty                |
+|  clear()             | Removes all elements                  |
+|  iterator()          | Returns iterator to traverse elements |
+|  clone()             | Returns shallow copy of the set       |
+
+When to Use HashSet:
+
+Need unique elements
+
+Don’t care about insertion order
+
+Want fast performance for add, remove, and lookup.

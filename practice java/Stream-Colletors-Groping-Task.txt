@@ -1,0 +1,74 @@
+//// Task 1
+
+package StreamCollector.groping;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+class Users{
+    int id;
+    String name;
+    LocalDate joiningDate;
+    LocalDate reliving;
+
+    public Users(int id, String name, LocalDate joiningDate, LocalDate reliving) {
+        this.id = id;
+        this.name = name;
+        this.joiningDate = joiningDate;
+        this.reliving = reliving;
+    }
+
+    @Override
+    public String toString() {
+        return "\n" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", joiningDate= " + joiningDate +
+                ", reliving= " + reliving ;
+    }
+}
+
+public class Task1 {
+    public static void main(String[] args) {
+        ArrayList<Users> users=new ArrayList<>();
+        users.add(new Users(12,"shahin",LocalDate.of(2023,12,5),LocalDate.now()));
+        users.add(new Users(13,"mahin",LocalDate.of(2022,11,6),LocalDate.now()));
+        users.add(new Users(12,"mohammed",LocalDate.of(2025,12,5),LocalDate.now()));
+
+        Map<String,Long> result=users.stream()
+
+                .collect(Collectors.toMap(
+                        x->x.name,
+                        x-> ChronoUnit.DAYS.between(x.joiningDate,x.reliving)
+                ));
+        System.out.println(result);
+    }
+}
+
+////---------------------------------------------------------------------------------------
+
+////task2
+
+package StreamCollector.groping;
+
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class Task2 {
+    public static void main(String[] args) {
+        Map<Character,Long> s=Stream.of("Hello world")
+                .flatMap(x->x.chars().mapToObj(c->(char)c))
+               .collect(Collectors.groupingBy(
+                       c->c,
+                       Collectors.counting()
+               ));
+
+
+
+
+
+    }
+}

@@ -1,0 +1,23 @@
+Comparator Interface (Custom Ordering):
+---------------------------------------
+
+Comparator is used when you want to define multiple or external sorting logics.
+
+| Feature         | Description                                    |
+| --------------- | ---------------------------------------------- |
+| Package         | java.util                                      |
+| Method          | compare(o1, o2)                                |
+| Sorting Type    | Custom                                         |
+| Used When       | You want multiple sort logics                  |
+| Used By         | TreeSet, TreeMap, Collections.sort(list, comp) |
+| Supports Lambda |   Yes                                          |
+
+public interface Comparator<T> {
+    int compare(T o1, T o2);
+}
+
+As a separate class
+
+As an anonymous class
+
+As a lambda expression (Java 8+)

@@ -1,0 +1,1165 @@
+Collection framework
+---------------------
+1) What is a Framework?
+
+A framework in Java is a collection of predefined classes and interfaces that 
+gives a ready-made architecture so developers don’t need to build from scratch.
+
+2) What is Collection Framework?
+
+The Collection Framework in Java is a set of interfaces and classes used to 
+	store and process groups of objects (data).
+-> Introduced in JDK 1.2
+-> Present in package java.util
+-> Allows storing only objects (not primitives)
+-> Alternative to arrays
+
+3) Why do we need Collection Framework? (Advantages)
+| Problem with Arrays             | How Collection solves it                                  |
+| ------------------------------- | --------------------------------------------------------- |
+| Fixed size                      | Growable / dynamic size                                   |
+| Only homogeneous allowed        | Can store homogeneous or heterogeneous (without generics) |
+| No built-in data structures     | Provides ready-made structures: List, Set, Queue, Map     |
+| Manual algorithm implementation | Provides inbuilt methods and algorithms                   |
+
+4) Root Interface — Iterable
+
+Iterable is the top-most interface of the collection hierarchy.
+
+It provides:
+Iterator<T> iterator() → to traverse elements one by one
+default void forEach() → loop using lambda
+Spliterator<T> → supports parallel traversal
+All Collections must implement Iterable.
+
+5) Collection - Interface (Core Methods)
+Collection<E> is parent of List, Set, Queue (not Map).
+| Method                              | Purpose                       |
+| ----------------------------------- | ----------------------------- |
+|  int size()                         | returns number of elements    |
+|  boolean isEmpty()                  | checks if collection is empty |
+|  boolean contains(Object o)         | checks if element exists      |
+|  Iterator<E> iterator()             | returns iterator to traverse  |
+|  Object[] toArray()                 | converts to array             |
+|  boolean add(E e)                   | adds one element              |
+|  boolean addAll(Collection c)       | adds multiple elements        |
+|  boolean remove(Object o)           | removes one element           |
+|  boolean removeAll(Collection c)    | removes group of elements     |
+|  boolean containsAll(Collection c)  | checks for group existence    |
+|  void clear()                       | removes all elements          |
+|  Stream<E> stream()                 | supports stream API           |
+|  parallelStream()                   | process elements parallel     |
+
+
+6) When should we use Collection Framework?
+
+Use Collection Framework when you:
+-> deal with dynamic data
+-> require searching, sorting, insertion, deletion
+-> want to use standard data structures
+-> need ready-made algorithms.
+
+--------------------------------------------------------------------------
+
+List (Interface):
+-----------------
+List is a child interface of Collection that stores ordered elements and 
+	allows duplicate elements.
+	
+Maintains insertion order
+
+Allows duplicates
+
+Allows index-based access (like array)
+
+Allows null values
+
+2) List Interface Hierarchy:
+
+Iterable
+   └── Collection
+           └── List
+                ├── ArrayList
+                ├── LinkedList
+                ├── Vector
+                └── Stack (extends Vector)
+				
+3) Implementations of List
+| Implementation | Internal Structure           | Best for                      | Slow for                      |
+| -------------- | ---------------------------- | ----------------------------- | ----------------------------- |
+|   ArrayList    | Dynamic array                | Fast reading (get), iterating | Insert/delete in middle       |
+|   LinkedList   | Doubly linked list           | Insert/delete frequently      | Random access (get by index)  |
+|   Vector       | Dynamic array (synchronized) | Thread-safe operations        | Slower due to sync            |
+|   Stack        | LIFO (extends Vector)        | Last-In-First-Out             | Not used much now (use Deque) |
+
+4) Common Methods of List:
+
+| Method                  | Meaning                |
+| ----------------------- | ---------------------- |
+|  add(E e)               | Add element            |
+|  add(int index,E e)     | Add at specific index  |
+|  get(int index)         | Fetch element by index |
+|  set(int index,E e)     | Replace element        |
+|  remove(int index)      | Remove by index        |
+|  indexOf(Object o)      | First occurrence index |
+|  lastIndexOf(Object o)  | Last occurrence index  |
+|  subList(int from,to)   | Part of list           |
+|  trimeToSize()          |--------------
+5) When to Use List?
+
+Use List when:
+You want ordered data
+You need duplicate entries
+You want index based operations
+
+----------------------------------------------------------
+ArrayList (Class):
+------------------
+
+1) What is ArrayList?
+
+ArrayList is a resizable (dynamic) array implementation of the List interface in Java.
+
+Ordered collection (insertion order preserved)
+
+Allows duplicates
+
+Allows null values
+
+Not thread-safe (not synchronized)
+
+Fast for read operations (get, iteration)
+
+Slower for insert/remove in the middle
+
+
+2) how Internally Working ?
+
+Internally ArrayList uses a dynamic array like -> Object[] elementData;
+
+Default initial capacity = 10
+
+When size exceeds capacity:
+
+It creates a new array with 1.5 times 
+(old capacity * 1.5)
+
+Copies old elements into new array
+
+Example:
+Old capacity = 10 → new = 15
+Old capacity = 15 → new = 22
+
+3) Common Constructors:
+List<Integer> list1 = new ArrayList<>();         // default capacity 10
+List<Integer> list2 = new ArrayList<>(50);       // custom capacity
+List<Integer> list3 = new ArrayList<>(list2);    // copy another collection
+
+4) Frequently Used Methods:
+| Method                | Description            |
+| --------------------- | ---------------------- |
+|  add(E e)             | adds at end            |
+|  add(int index, E e)  | adds at specific index |
+|  get(int index)       | returns element        |
+|  set(int index, E e)  | replace element        |
+|  remove(int index)    | remove using index     |
+|  remove(Object o)     | remove using value     |
+|  contains(Object o)   | check existence        |
+|  size()               | current count          |
+|  clear()              | delete all             |
+
+5) Performance:
+---------------
+| Operation             | Performance           | Reason              |
+| --------------------- | --------------------- | ------------------- |
+|  get(i)               | Fast (O(1))           | Direct index access |
+|  add(e)               | Fast (Amortized O(1)) | Append at end       |
+|  add/remove at index  | Slow (O(n))           | Shifting elements   |
+|  search               | O(n)                  | Linear scan         |
+
+7) When to Use ArrayList?
+
+You need fast access using index
+
+More reads, less inserts/deletes
+
+Order matters & duplicates allowed.
+-------------------------------------------------------------------------------------------------
+LinkedList (class):
+------------------
+
+1) What is LinkedList?
+
+LinkedList is a doubly linked list implementation of List and Deque interfaces.
+
+Maintains insertion order
+
+Allows duplicates & nulls
+
+Fast insertions/deletions in middle
+
+Slow for random access (get(index))
+
+It works on nodes instead of array.
+
+2) Internal Structure
+Each element is stored in a Node:
+
+private static class Node<E> {
+    E item;
+    Node<E> next;
+    Node<E> prev;
+}
+
+So each element has a reference to previous and next (doubly linked).
+
+3) Constructors
+List<String> list = new LinkedList<>();
+Deque<Integer> dq  = new LinkedList<>();
+(LinkedList also implements Deque, so it can be used as Queue or Stack)
+
+4) Performance
+
+| Operation               | LinkedList        | Why                              |
+| ----------------------- | ----------------- | -------------------------------- |
+| add/remove at head/tail | O(1)              | No shifting, just pointer change |
+| add/remove in middle    | O(1) once located | but locating takes O(n)          |
+| get(index)              | O(n)              | must traverse nodes sequentially |
+| contains()              | O(n)              | linear traversal                 |
+
+5) Useful Methods
+
+add(), add(index,e), get(), set(), remove()
+
+From Deque (extra features):
+
+addFirst(e), addLast(e)
+removeFirst(), removeLast()
+
+peekFirst(), peekLast()
+offer(), poll(), push(), pop()
+
+6) When to Use LinkedList?
+
+Frequent insert/delete in middle or ends
+
+Need Queue / Deque behavior
+
+Not much random access
+
+Avoid when:
+You need fast get(index) access — use ArrayList instead.
+---------------------------------------------------------------------------------------------------
+
+Vector (class):
+---------------
+1) What is Vector?
+
+Vector is a growable array similar to ArrayList, but the main difference is:
+
+Thread-safe (synchronized)
+
+Slower than ArrayList due to synchronization
+
+Maintains insertion order
+
+Allows duplicates and null
+
+Part of legacy classes (before Collection Framework — JDK 1.0)
+
+Updated later to implement List
+
+
+2) Internal Working
+Internally Vector uses:
+Object[] elementData;
+Default initial capacity = 10
+When array is full, it grows by double (oldCapacity * 2) (not 1.5 like ArrayList)
+
+3) Constructors
+Vector<Integer> v1 = new Vector<>();         // default size = 10
+Vector<Integer> v2 = new Vector<>(50);       // custom initial size
+Vector<Integer> v3 = new Vector<>(v2);       // copy another collection
+
+ArrayList	-> 50% (It increases by half its current size)
+Vector	    -> 100% (It doubles its current size)
+
+4) Common Methods
+| Method                | Use                      |
+| --------------------- | ------------------------ |
+|  add(E e)             | add at end               |
+|  add(int index, E e)  | insert at position       |
+|  get(int index)       | fetch element            |
+|  remove(...)          | remove element           |
+|  capacity()           | returns current capacity |
+|  trimToSize()         | reduce unused capacity   |
+
+6) When to use Vector?
+
+Use Vector when:
+
+Thread safety is required (multi-threaded environment)
+
+Legacy project uses Vector already
+
+Avoid Vector when:
+
+Working in single-thread → use ArrayList (faster)
+
+Modern concurrent alternatives like CopyOnWriteArrayList exist
+
+7) Vector vs ArrayList:
+| Feature  | Vector              | ArrayList                 |
+| -------- | ------------------- | ----------------------    |
+| Sync     | Yes (thread-safe)   | No (not thread-safe)      | 
+| Speed    | Slower              | Faster                    |
+| Growth   | Doubles             | Grows by 1.5x (50%)       |
+| Use case | Multi-threaded      | Single-threaded           |
+
+-----------------------------------------------------------------------------------------------
+
+
+Stack (class):
+--------------
+1) What is stack ?
+Stack is a legacy class in Java that extends Vector and follows 
+	LIFO (Last In, First Out) order.
+Last inserted element will be removed first.
+
+2) Class Hierarchy ?
+
+Iterable
+ └─ Collection
+     └─ List
+         └─ Vector
+             └─ Stack (extends Vector)
+3) Operations of Stack:
+
+Stack provides 5 main methods:
+
+| Method             | Description                         |
+| ------------------ | ----------------------------------- |
+|  push(E item)      | Insert element on top               |
+|  pop()             | Remove + return top element         |
+|  peek()            | Return top element without removing |
+|  empty()           | Check if stack is empty             |
+|  search(Object o)  | Position from top (1-based index)   |
+
+4) Example:
+
+import java.util.Stack;
+
+public class StackDemo {
+    public static void main(String[] args) {
+        Stack<Integer> stack = new Stack<>();
+
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+
+        System.out.println(stack);      // [10, 20, 30]
+        System.out.println(stack.peek()); // 30
+
+        System.out.println(stack.pop());  // 30
+        System.out.println(stack);        // [10, 20]
+
+        System.out.println(stack.search(10)); // 2 (from top)
+        System.out.println(stack.empty());    // false
+    }
+}
+
+5) Why Stack is not preferred now?
+
+Even though Stack works fine:
+
+It is synchronized (because extends Vector) → slower
+
+Java recommends using Deque (ArrayDeque) instead
+
+Example modern alternative:
+
+Deque<Integer> stack = new ArrayDeque<>();
+stack.push(10);
+stack.push(20);
+stack.pop();
+
+6) When to use Stack?
+
+You need LIFO behaviour Or working on legacy code already using Stack.
+
+Prefer ArrayDeque in new projects.
+
+-------------------------------------------------------------------------------------------
+A) Queue (Interface):
+---------------------
+1) What is Queue?
+
+Queue is a Collection type that follows FIFO (First In, First Out).
+
+Example: People standing in line — first person goes first.
+
+Common use cases:
+------------------
+Task scheduling
+
+Printer jobs
+
+Producer-Consumer pattern
+
+Queue does not allow:
+----------------------
+Random access by index
+
+Modifying in the middle
+
+Important Queue methods:
+------------------------
+| Method                 | Purpose                    |
+| ---------------------- | -------------------------- |
+|  add(e)  /  offer(e)   | insert element at tail     |
+|  remove()  /  poll()   | remove head element        |
+|  element()  /  peek()  | read head without removing |
+
+Difference:
+add(), remove(), element() -> throw exception if fail.
+
+offer(), poll(), peek() -> return special value (null/false) instead of exception.
+
+Common Implementations of Queue:
+| Class           | Nature                   | Use case                      |
+| --------------- | ------------------------ | ----------------------------- |
+|  LinkedList     | Normal queue             | General queue operations      |
+|  PriorityQueue  | Sorted based on priority | Highest/lowest priority first |
+|  ArrayDeque     | Faster & re-sizable      | Recommended for queue/stack   |
+
+B) Deque (Interface):
+---------------------
+Deque stands for Double Ended Queue
+You can insert and remove elements from both ends.
+
+It supports both:
+FIFO (Queue)
+LIFO (Stack replacement)
+
+Methods in Deque
+| Operation | Front (Head)                    | Rear (Tail)                   |
+| --------- | ------------------------------- | ----------------------------- |
+| Insert    |  addFirst(e)  /  offerFirst(e)  |  addLast(e)  /  offerLast(e)  |
+| Remove    |  removeFirst()  /  pollFirst()  |  removeLast()  /  pollLast()  |
+| Peek      |  peekFirst()                    |  peekLast()                   |
+
+Common Implementations of Deque:
+
+| Class                   | Feature                     |
+| ----------------------- | --------------------------- |
+|  ArrayDeque             | Fast, recommended           |
+|  LinkedList             | Also implements Deque       |
+|  ConcurrentLinkedDeque  | Thread-safe for concurrency |
+
+
+3) Simple Example: (Queue using LinkedList)
+
+public class QueueDemo {
+    public static void main(String[] args) {
+        Queue<String> q = new LinkedList<>();
+
+        q.offer("A");
+        q.offer("B");
+        q.offer("C");
+
+        System.out.println(q);      // [A, B, C]
+        System.out.println(q.poll()); // A
+        System.out.println(q.peek()); // B
+    }
+}
+
+4) Simple Example: (Deque using ArrayDeque)
+
+public class DequeDemo {
+    public static void main(String[] args) {
+        Deque<Integer> dq = new ArrayDeque<>();
+
+        dq.offerFirst(10);
+        dq.offerLast(20);
+        dq.offerLast(30);
+
+        System.out.println(dq);         // [10, 20, 30]
+        System.out.println(dq.pollLast()); // 30 (LIFO)
+        System.out.println(dq.pollFirst()); // 10 (FIFO)
+    }
+}
+
+5) Which one choose Queue or Deque ?
+
+| Use Case                  | Choose                |
+| ------------------------- | --------------------- |
+| Always FIFO               | Queue                 |
+| Need both FIFO & LIFO     | Deque                 |
+| Replacement for Stack     | Deque (ArrayDeque)    |
+| Priority-based processing | PriorityQueue         |
+| Thread-safe queue         | ConcurrentLinkedQueue |
+
+----------------------------------------------------------------------------------
+
+PriorityQueue (class)
+---------------------
+1) What is PriorityQueue?
+
+PriorityQueue is a class in Java that implements the Queue interface, 
+	but instead of following FIFO (First In, First Out),
+it arranges elements based on priority (natural order or custom comparator).
+
+-> Elements with higher priority come out first.
+-> It does not maintain insertion order.
+
+Introduced in Java 1.5
+
+Present in package java.util
+
+Based on a Binary Heap (min-heap by default)
+
+Duplicates allowed
+
+Null elements NOT allowed
+
+Not thread-safe (use PriorityBlockingQueue for concurrency)
+
+3) Internal Working
+
+Internally uses a binary heap (array-based) structure:
+
+Root element is always the smallest (or highest priority).
+
+When you add or remove, the heap is adjusted automatically.
+
+formula :
+Parent      = (i - 1) / 2
+
+4) Constructors
+PriorityQueue<Integer> pq1 = new PriorityQueue<>(); // natural order (min-heap)
+PriorityQueue<Integer> pq2 = new PriorityQueue<>(Comparator.reverseOrder()); // max-heap
+PriorityQueue<Integer> pq3 = new PriorityQueue<>(50); // initial capacity
+
+5) Important Methods:
+| Method             | Description                                              |
+| ------------------ | -------------------------------------------------------- |
+|  offer(E e)        | Inserts element according to priority                    |
+|  peek()            | Returns highest-priority element (head) without removing |
+|  poll()            | Removes and returns head (highest priority)              |
+|  remove(Object o)  | Removes specific element                                 |
+|  size()            | Number of elements                                       |
+|  isEmpty()         | Checks if empty                                          |
+
+Types of heaps:
+---------------
+1. Natural Ordering (Min-Heap)
+2. Custom Priority (Max-Heap)
+
+6) When to Use PriorityQueue?
+
+You need to process elements based on priority (not insertion order)
+Task schedulers
+
+Job processing systems
+
+7) Comparison:
+| Feature      | Queue               | PriorityQueue                  |
+| ------------ | ------------------- | ------------------------------ |
+| Order        | FIFO                | Based on priority              |
+| Null allowed | Yes (in some impl.) | No                             |
+| Duplicates   | Yes                 | Yes                            |
+| Thread-safe  | No                  | No (use PriorityBlockingQueue) |
+
+---------------------------------------------------------------------------------------------
+
+1) ArrayDeque:
+--------------
+ArrayDeque (Array Double Ended Queue) is a resizable array-based 
+	implementation of the Deque interface.
+
+It can be used as:
+
+Queue -> FIFO (First In, First Out)
+
+Stack -> LIFO (Last In, First Out)
+
+It is faster than Stack and LinkedList for stack/queue operations.
+
+Introduced in Java 1.6
+
+Present in java.util package
+
+No capacity limit (grows automatically)
+
+Not thread-safe
+
+Does not allow null elements
+
+Allows duplicates
+
+Uses circular array internally
+
+When elements are removed/added, the head and tail indices wrap around (circularly).
+
+Automatically resizes (doubles size) when full.
+
+
+Deque<Integer> dq1 = new ArrayDeque<>();      // default capacity = 16
+Deque<String> dq2 = new ArrayDeque<>(50);     // custom initial capacity
+
+2) Important Methods
+| Method                              | Description       |
+| ----------------------------------- | ----------------- |
+|  addFirst(E e)  /  offerFirst(E e)  | insert at front   |
+|  addLast(E e)  /  offerLast(E e)    | insert at end     |
+|  removeFirst()  /  pollFirst()      | remove from front |
+|  removeLast()  /  pollLast()        | remove from end   |
+|  peekFirst()                        | get first element |
+|  peekLast()                         | get last element  |
+
+| Method      | Description           |
+| ----------- | --------------------- |
+|  push(E e)  | same as addFirst()    |
+|  pop()      | same as removeFirst() |
+|  peek()     | same as peekFirst()   |
+
+3) Performance
+
+| Operation                  | Time Complexity | Notes                      |
+| -------------------------- | --------------- | -------------------------- |
+| Insert/remove at head/tail | O(1)            | No shifting like ArrayList |
+| Random access              | Not supported   | No index-based get()       |
+| Resizing                   | O(n) (rare)     | Happens only when full     |
+
+4) When to Use ArrayDeque
+
+Use ArrayDeque when:
+
+You need both stack and queue operations
+
+You want fast insertions/removals from both ends
+
+You don’t need thread-safety
+
+-------------------------------------------------------------------------------------
+
+Set:
+----
+Set is a Collection that does not allow duplicate elements.
+
+| Feature            | Description                                                 |
+| ------------------ | ----------------------------------------------------------- |
+| Duplicate elements |   Not allowed                                               |
+| Null elements      |   Allowed (but only one)                                    |
+| Order              |   Depends on implementation                                 |
+| Index-based access |   Not supported                                             |
+| Thread-safe        |   Not synchronized                                          |
+| Performance        | Depends on implementation (HashSet, LinkedHashSet, TreeSet) |
+
+
+Methods:
+--------
+
+| Method                 | Description                         |
+| ---------------------- | ----------------------------------- |
+|  add(E e)              | Adds element if not already present |
+|  addAll(Collection c)  | Adds all unique elements            |
+|  remove(Object o)      | Removes element                     |
+|  contains(Object o)    | Checks existence                    |
+|  size()                | Returns number of elements          |
+|  clear()               | Removes all                         |
+|  isEmpty()             | Checks if empty                     |
+|  iterator()            | Returns iterator                    |
+|  toArray()             | Converts to array                   |
+
+
+when to use:
+------------
+
+| Use Case                          | Best Choice   |
+| --------------------------------- | ------------- |
+| Need only uniqueness              | HashSet       |
+| Need uniqueness + insertion order | LinkedHashSet |
+| Need uniqueness + sorted order    | TreeSet       |
+
+-------------------------------------------------------------------------------------------------
+HashSet:
+--------
+HashSet is a class in Java that implements the Set interface using hashing.
+It stores unique elements and 
+provides constant-time performance (O(1)) for add, remove, and search operations.
+It is part of the java.util package.
+
+Characteristics:
+----------------
+
+| Feature            | Description                                 |
+| ------------------ | ------------------------------------------- |
+| Duplicate elements |   Not allowed                               |
+| Null element       |   Allowed (only one)                        |
+| Order              |   Unordered (no insertion or sorting order) |
+| Thread-safe        |   Not synchronized                          |
+| Backed By          |  HashMap                                    |
+| Performance        | Very fast (O(1)) average time               |
+| Introduced in      | JDK 1.2                                     |
+
+Internal Structure:
+
+HashSet internally uses a HashMap where:
+
+Each element of the set is stored as a key in the HashMap
+
+The value for each key is a dummy constant object (usually PRESENT)
+
+example:
+
+private static final Object PRESENT = new Object();
+
+private transient HashMap<E,Object> map;
+
+public boolean add(E e)
+{
+    return map.put(e, PRESENT) == null;
+}
+
+Constructors:
+-------------
+HashSet<Integer> set1 = new HashSet<>();                // default
+HashSet<Integer> set2 = new HashSet<>(100);             // with initial capacity
+HashSet<Integer> set3 = new HashSet<>(100, 0.75f);      // with load factor
+HashSet<Integer> set4 = new HashSet<>(anotherCollection);
+
+Important Methods:
+------------------
+| Method               | Description                           |
+| -------------------- | ------------------------------------- |
+|  add(E e)            | Adds element if not already present   |
+|  remove(Object o)    | Removes the element                   |
+|  contains(Object o)  | Returns true if element exists        |
+|  size()              | Returns number of elements            |
+|  isEmpty()           | Checks if set is empty                |
+|  clear()             | Removes all elements                  |
+|  iterator()          | Returns iterator to traverse elements |
+|  clone()             | Returns shallow copy of the set       |
+
+When to Use HashSet:
+
+Need unique elements
+
+Don’t care about insertion order
+
+Want fast performance for add, remove, and lookup.
+
+-------------------------------------------------------------------------------------
+
+LinkedHashSet:
+--------------
+LinkedHashSet is a Set implementation that maintains insertion order of elements.
+
+It combines the hashing mechanism of HashSet (for fast access) and 
+the linked list mechanism (for maintaining order).
+
+Present in java.util package.
+
+Introduced in JDK 1.4.
+
+Internal Structure:
+-------------------
+LinkedHashSet = HashSet + LinkedHashMap
+
+Internally uses a LinkedHashMap instead of HashMap.
+
+Each element is stored as a key in the LinkedHashMap.
+
+The values are dummy constants (just like HashSet uses PRESENT).
+
+The LinkedHashMap maintains a doubly-linked list of entries to preserve insertion order.
+
+HashSet  → HashMap
+LinkedHashSet → LinkedHashMap
+
+| Feature      | Description                                           |
+| ------------ | ----------------------------------------------------- |
+| Duplicates   |  Not allowed                                          |
+| Null element |  Allowed (only one)                                   |
+| Order        |  Maintains **insertion order**                        |
+| Backed by    | LinkedHashMap                                         |
+| Thread-safe  |  Not synchronized                                     |
+| Performance  | Slightly slower than HashSet (because of linked list) |
+
+Constructors:
+-------------
+LinkedHashSet<E> lhs = new LinkedHashSet<>();
+LinkedHashSet<E> lhs = new LinkedHashSet<>(initialCapacity);
+LinkedHashSet<E> lhs = new LinkedHashSet<>(initialCapacity, loadFactor);
+LinkedHashSet<E> lhs = new LinkedHashSet<>(anotherCollection);
+
+Important Methods:
+
+| Method               | Description                         |
+| -------------------- | ----------------------------------- |
+|  add(E e)            | Adds element if not already present |
+|  remove(Object o)    | Removes element                     |
+|  contains(Object o)  | Checks presence                     |
+|  size()              | Returns number of elements          |
+|  isEmpty()           | Checks if empty                     |
+|  clear()             | Removes all elements                |
+|  iterator()          | Returns iterator in insertion order |
+
+
+---------------------------------------------------------------------------------------------------
+TreeSet:
+--------
+TreeSet is a SortedSet implementation in Java that stores unique elements in sorted order.
+
+It uses a balanced tree data structure internally specifically a Red-Black Tree.
+
+Belongs to the package java.util
+
+Introduced in JDK 1.2.
+
+| Feature       | Description                                              |
+| ------------- | -------------------------------------------------------- |
+| Duplicates    |   Not allowed                                            |
+| Null elements |   Not allowed (throws  NullPointerException  in Java 7+) |
+| Order         |   Sorted (ascending by default)                          |
+| Underlying DS |   TreeMap   (Red-Black Tree)                             |
+| Thread-safe   |   Not synchronized                                       |
+| Comparator    | Optional (for custom sorting)                            |
+
+Internal Working:
+-----------------
+1. Natural ordering (Comparable)
+2. Custom ordering (Comparator)
+
+Internal Red-Black Tree Mechanism (Simplified):
+------------------------------------------------
+TreeSet stores elements in a self-balancing binary search tree.
+
+When you insert or remove, the tree automatically balances itself.
+
+This keeps operations like add(), remove(), and contains() efficient (O(log n)).
+
+Constructors:
+-------------
+TreeSet<E> ts = new TreeSet<>();                  // Natural ordering
+TreeSet<E> ts = new TreeSet<>(Comparator);        // Custom order
+TreeSet<E> ts = new TreeSet<>(Collection c);      // From another collection
+TreeSet<E> ts = new TreeSet<>(SortedSet s);       // From another sorted set
+
+Important Methods:
+------------------
+| Method                 | Description                  |
+| ---------------------- | ---------------------------- |
+|  add(E e)              | Adds element in sorted order |
+|  remove(Object o)      | Removes the element          |
+|  contains(Object o)    | Checks existence             |
+|  size()                | Number of elements           |
+|  isEmpty()             | Checks if empty              |
+|  first()               | Returns the lowest element   |
+|  last()                | Returns the highest element  |
+|  higher(E e)           | Element > given element      |
+|  lower(E e)            | Element < given element      |
+|  ceiling(E e)          | Element ≥ given element      |
+|  floor(E e)            | Element ≤ given element      |
+|  headSet(E to)         | Elements < to                |
+|  tailSet(E from)       | Elements ≥ from              |
+|  subSet(E from, E to)  | Elements between range       |
+|  iterator()            | Iterates in ascending order  |
+|  descendingIterator()  | Iterates in descending order |
+
+
+When to Use TreeSet:
+--------------------
+
+Need unique elements
+
+Need elements in sorted order
+
+Don’t need fast (O(1)) operations like HashSet
+
+
+
+---------------------------------------------------------------------------------------
+
+Map (interface):
+----------------
+Map is not a part of Collection hierarchy,
+but it is an important part of the Java Collection Framework.
+
+A Map stores data in the form of key-value pairs.
+Each key is unique, but values can be duplicate.
+
+Stores key-value pairs
+
+Keys must be unique
+
+Values can be duplicate
+
+Null keys/values allowed (depends on implementation)
+
+Not synchronized (except Hashtable)
+
+Cannot use index (no ordering like List)
+
+Internal Structure:
+-------------------
+class Node<K, V> {
+    final int hash;
+    final K key;
+    V value;
+    Node<K, V> next; // for collision (linked list)
+}
+
+How Data is Stored:
+map.put("Arun", 100);
+
+step 1 -> find hash code for key
+hash = hash("Arun");
+
+step 2 -> find bucket index
+index = hash % capacity
+
+Step 3 -> Check bucket
+If bucket empty → store new Node
+
+If key already exists → replace value
+
+If collision → append to linked list (or tree if list too long)
+
+Load Factor
+-----------
+Definition: Load factor = ratio of number of entries to capacity.
+loadFactor = size / capacity
+0/16 = 0.75 -> 75%
+
+
+Default load factor = 0.75
+
+Means when 75% of buckets are filled, HashMap rehashes (resizes).
+
+Example:
+
+capacity = 16
+
+load factor = 0.75
+→ threshold = 16 × 0.75 = 12
+So when 12th element added → HashMap resizes to 32 (doubles).
+
+
+2) Methods in Map Interface:
+| Method                        | Description                        |
+| ----------------------------- | ---------------------------------- |
+|  put(K key, V value)          | insert or replace value by key     |
+|  putAll(Map m)                | copy all entries from another map  |
+|  get(Object key)              | returns value for the given key    |
+|  remove(Object key)           | removes entry for key              |
+|  containsKey(Object key)      | checks key presence                |
+|  containsValue(Object value)  | checks value presence              |
+|  keySet()                     | returns all keys as Set            |
+|  values()                     | returns all values as Collection   |
+|  entrySet()                   | returns all key-value pairs as Set |
+|  size()                       | number of entries                  |
+|  clear()                      | removes all entries                |
+|  isEmpty()                    | checks if empty                    |
+
+Iterating a Map:
+-> keySet()
+-> values()
+-> entrySet()
+-> forEach()
+
+---------------------------------------------------------------------------------------------
+
+HashMap:
+--------
+> It's belongs to Map interface.
+> Map is one of the collection framework.
+> Map stores Key and Value pair.
+> can't working with index value.
+> but search is possible( contains )
+> It not allows duplicate keys but It supports one null key.
+> homogenous and heterogeneous supports.
+> It is not follows insertion order.
+> HashMap is uses data structures like dynamic Array and 
+	singly linked list
+> HashMap's internal table default size is 16
+> HashMap's internal table, if it reaches 75% capacity
+	automatically grow double the size.(16 -> 32)
+> HashMap's internal dynamic array's each index 
+	called bucket.
+------------------------------------------------------------------------------------------------------
+LinkedHashMap (class):
+----------------------
+LinkedHashMap is a subclass of HashMap that maintains insertion 
+	order (or access order, if configured).
+It combines:
+HashMap’s fast performance (O(1) lookups)
+LinkedList’s ordering feature
+It was introduced in Java 1.4 and is part of java.util package.
+
+3. Internal Structure:
+----------------------
+It internally maintains a doubly linked list running through all entries of the HashMap.
+An array of buckets (like HashMap)
+Plus, each node also keeps links to its previous and next node.
+
+class Node<K,V>
+{
+final int hash;
+final K kay;
+V value;
+Node<K,V> next;
+Node<K,V> before;
+Node<K,V> after;
+}
+
+
+| Feature          | Description                                 |
+| ---------------- | ------------------------------------------- |
+| Ordering         | Maintains   insertion order   by default    |
+| Access Order     | Can maintain   access order   if configured |
+| Null             | One null key, multiple null values allowed  |
+| Duplicates       | Keys: not allowed, Values: allowed          |
+| Thread-safe      | Not synchronized                            |
+| Performance      | Almost same as HashMap                      |
+| Load Factor      | Default 0.75                                |
+| Initial Capacity | Default 16                                  |
+
+5. Constructors:
+
+LinkedHashMap<Integer, String> map1 = new LinkedHashMap<>();
+
+// maintain access order (true)
+LinkedHashMap<Integer, String> map2 = new LinkedHashMap<>(16, 0.75f, true);
+
+Access Order:
+-------------
+import java.util.*;
+
+public class AccessOrderDemo 
+{
+    public static void main(String[] args) 
+	{
+        LinkedHashMap<Integer, String> map =
+            new LinkedHashMap<>(16, 0.75f, true);
+
+        map.put(1, "A");
+        map.put(2, "B");
+        map.put(3, "C");
+
+        map.get(1); // accessing key 1 moves it to end
+
+        System.out.println(map);
+        // Output: {2=B, 3=C, 1=A}
+    }
+}
+
+
+Use LinkedHashMap:
+
+Need fast lookup + predictable order
+
+Want to preserve insertion order
+
+Implement caches or LRU algorithms (least recently used).
+
+
+
+------------------------------------------------------------------------------------------
+
+TreeMap (class)
+---------------
+TreeMap is a part of java.util package and implements the NavigableMap interface,
+which extends SortedMap.
+It stores key–value pairs in sorted (ascending) order of keys by default 
+	(based on natural ordering or a custom Comparator you provide).
+
+Keys are always sorted (ascending by default).
+underlying Red-Black Tree (a self-balancing binary search tree) data structure.
+null keys not allowed.
+Not Thread safe.
+
+Node structure:
+---------------
+static final class Entry<K,V> implements Map.Entry<K,V> 
+{
+    K key;
+    V value;
+    Entry<K,V> left;
+    Entry<K,V> right;
+    Entry<K,V> parent;
+    boolean color; // RED or BLACK
+}
+
+TreeMap Works Internally
+
+Insertion:
+1. If the map is empty → create a root node (colored BLACK).
+2. Else, it compares the new key:
+	if key < current.key → go left
+	
+	if key > current.key → go right
+
+	if key == current.key → replace value.
+3. Insert the node as a red node (by rule).
+4. Rebalance the tree to maintain Red-Black Tree properties.
+
+Balancing Rules:
+----------------
+Every node is either red or black.
+The root is always black.
+All leaves (nulls) are considered black.
+Red nodes cannot have red children.
+Every path from a node to its descendant leaves has the same number of black nodes.
+
+1. Map Methods:
+| Method                                | Description                    | Example                        |
+| ------------------------------------- | ------------------------------ | ------------------------------ |
+|  V put(K key, V value)                | Add or update a key-value pair |  map.put(1, "Apple");          |
+|  V get(Object key)                    | Returns value for given key    |  map.get(1);                   |
+|  boolean containsKey(Object key)      | Checks if key exists           |  map.containsKey(2);           |
+|  boolean containsValue(Object value)  | Checks if value exists         |  map.containsValue("Banana");  |
+|  V remove(Object key)                 | Removes entry by key           |  map.remove(3);                |
+|  int size()                           | Returns number of entries      |  map.size();                   |
+|  void clear()                         | Removes all mappings           |  map.clear();                  |
+|  boolean isEmpty()                    | Returns true if map empty      |  map.isEmpty();                |
+|  Set<K> keySet()                      | Returns all keys               |  map.keySet();                 |
+|  Collection<V> values()               | Returns all values             |  map.values();                 |
+|  Set<Map.Entry<K,V>> entrySet()       | Returns all entries            |  map.entrySet();               |
+
+2. SortedMap Methods:
+| Method                                      | Description                                            | Example               |
+| ------------------------------------------- | ------------------------------------------------------ | --------------------- |
+|  K firstKey()                               | Returns the   lowest key                               |  map.firstKey();      |
+|  K lastKey()                                | Returns the   highest key                              |  map.lastKey();       |
+|  SortedMap<K,V> headMap(K toKey)            | All keys   less than toKey                             |  map.headMap(50);     |
+|  SortedMap<K,V> tailMap(K fromKey)          | All keys   greater than or equal to fromKey            |  map.tailMap(30);     |
+|  SortedMap<K,V> subMap(K fromKey, K toKey)  | All keys in   range [fromKey, toKey)                   |  map.subMap(10, 50);  |
+|  Comparator<? super K> comparator()         | Returns comparator used (or null for natural ordering) |  map.comparator();    |
+
+3. NavigableMap Methods:
+------------------------
+
+| Method                                                                                     | Description                         | Example                            |
+| ------------------------------------------------------------------------------------------ | ----------------------------------- | ---------------------------------- |
+|  Map.Entry<K,V> firstEntry()                                                               | Returns first (lowest key) entry    |  map.firstEntry();                 |
+|  Map.Entry<K,V> lastEntry()                                                                | Returns last (highest key) entry    |  map.lastEntry();                  |
+|  Map.Entry<K,V> ceilingEntry(K key)                                                        | Entry with   key ≥ given key        |  map.ceilingEntry(15);             |
+|  K ceilingKey(K key)                                                                       | Key with   ≥ given key              |  map.ceilingKey(15);               |
+|  Map.Entry<K,V> floorEntry(K key)                                                          | Entry with   key ≤ given key        |  map.floorEntry(15);               |
+|  K floorKey(K key)                                                                         | Key with   ≤ given key              |  map.floorKey(15);                 |
+|  Map.Entry<K,V> higherEntry(K key)                                                         | Entry with   key > given key        |  map.higherEntry(10);              |
+|  K higherKey(K key)                                                                        | Key with   > given key              |  map.higherKey(10);                |
+|  Map.Entry<K,V> lowerEntry(K key)                                                          | Entry with   key < given key        |  map.lowerEntry(10);               |
+|  K lowerKey(K key)                                                                         | Key with   < given key              |  map.lowerKey(10);                 |
+|  Map.Entry<K,V> pollFirstEntry()                                                           | Removes and returns first entry     |  map.pollFirstEntry();             |
+|  Map.Entry<K,V> pollLastEntry()                                                            | Removes and returns last entry      |  map.pollLastEntry();              |
+|  NavigableMap<K,V> descendingMap()                                                         | Returns reverse order view          |  map.descendingMap();              |
+|  NavigableSet<K> descendingKeySet()                                                        | Returns reverse order of keys       |  map.descendingKeySet();           |
+|  NavigableSet<K> navigableKeySet()                                                         | Returns normal order keys           |  map.navigableKeySet();            |
+|  NavigableMap<K,V> headMap(K toKey, boolean inclusive)                                     | Keys less than (or ≤ if true) toKey |  map.headMap(50, true);            |
+|  NavigableMap<K,V> tailMap(K fromKey, boolean inclusive)                                   | Keys ≥ (or > if false) fromKey      |  map.tailMap(30, false);           |
+|  NavigableMap<K,V> subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive)  | Range view with inclusiveness       |  map.subMap(20, true, 50, false);  |
+
+

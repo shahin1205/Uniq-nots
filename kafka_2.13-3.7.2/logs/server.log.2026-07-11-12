@@ -1,0 +1,7 @@
+[2026-07-11 12:07:42,226] INFO [NodeToControllerChannelManager id=1 name=registration] Node 1 disconnected. (org.apache.kafka.clients.NetworkClient)
+[2026-07-11 12:08:04,565] INFO [NodeToControllerChannelManager id=1 name=forwarding] Node 1 disconnected. (org.apache.kafka.clients.NetworkClient)
+[2026-07-11 12:22:52,188] WARN [BrokerLifecycleManager id=1] Broker 1 sent a heartbeat request but received error REQUEST_TIMED_OUT. (kafka.server.BrokerLifecycleManager)
+[2026-07-11 12:22:52,220] INFO [ReplicaFetcherManager on broker 1] Removed fetcher for partitions Set(hospital-topic-0) (kafka.server.ReplicaFetcherManager)
+[2026-07-11 12:22:52,529] INFO [ReplicaFetcherManager on broker 1] Removed fetcher for partitions Set(hospital-topic-0) (kafka.server.ReplicaFetcherManager)
+[2026-07-11 12:57:41,673] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000006935-0000000001 because we have waited at least 60 minute(s). (org.apache.kafka.image.publisher.SnapshotGenerator)
+[2026-07-11 12:57:41,707] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000006935-0000000001 (org.apache.kafka.image.publisher.SnapshotEmitter)

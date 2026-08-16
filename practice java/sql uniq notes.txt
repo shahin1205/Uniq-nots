@@ -1,0 +1,1646 @@
+1. Data:
+--------
+Definition:
+	-> Raw, unprocessed facts, figures, or symbols without context or meaning.
+	-> It could be numbers, characters, images, sounds, or raw observations.
+	here:
+	42, 65, 90 ->  Just numbers, we don’t know what they represent?.
+	"John, 25, 72kg" → Just raw values about someone.
+	
+2. Information:
+---------------
+Definition: 
+	-> Processed, organized, or structured data that has meaning and is useful for decision-making.
+	-> Data + Context = Information.
+here, 
+-> "42, 65, 90" (data) → “These are students’ test scores.” (information).
+-> "John, 25, 72kg" (data) → “John is 25 years old and weighs 72kg.” (information).
+
+Database :
+----------
+-> A Database (DB) is an organized collection of data that is stored and 
+	managed so it can be easily accessed, retrieved, updated, and managed.
+-> It is not just random files — it has structure and often follows certain rules.
+	
+	Advantages:
+	-----------
+> Organized data:
+	Data is arranged in tables, rows, and columns (in relational databases).
+> Efficient access:
+	We can quickly search, insert, update, and delete data.
+> Managed by DBMS:
+	A Database Management System (DBMS) is software that helps in managing 
+		the database (like MySQL, Oracle, PostgreSQL, MongoDB, etc.).
+
+DBMS (Database Management System):
+----------------------------------
+-> A DBMS is software that helps you create, manage, and use databases.
+-> A Database Management System (DBMS) is a software application
+	that allows users to create, manage, and interact with databases 
+	by providing a structured, secure, and efficient way to store, 
+	retrieve, and update data. It acts as an interface between the database 
+	and the users or other applications, ensuring data accuracy, accessibility, 
+	and integrity. 
+	
+	Functions of DBMS:
+	-------------------
+	1. Data Manipulation:
+		-> Inserting, updating, and deleting data within the database.
+	2. Data Retrieval:
+		-> Querying the database to find and display specific data based on 
+			user-defined criteria. 
+	3. Data Administration:
+		-> Managing users, enforcing security, monitoring performance, 
+			controlling data concurrency, and recovering data from failures. 
+	Advantages:
+	-----------
+	Organization:
+		-> Structures data into an organized and efficient system, 
+			like a well-managed file cabinet, making it easy to 
+				find information quickly.		
+		-> Security:
+			Provides a "safe" with locks and keys to protect data from unauthorized access,
+				ensuring only legitimate users can view and manipulate it. 
+		-> Data Integrity:
+			Validates and enforces rules for data entry and storage, 
+				preventing errors like duplicate entries or incorrect data types.
+		-> Easy Access:
+			Allows users to ask specific questions of the data and receive 
+				organized results, simplifying the process of finding needed information. 
+		-> Concurrency Control:
+			Manages simultaneous access by multiple users, ensuring data consistency. 
+		-> Backup and Recovery:
+			Helps in recovering corrupted data after unexpected system failures.
+		
+Types of Databases:		
+-------------------
+1. Relational Databases (RDBMS):
+
+RDBMS stores data in tables (rows & columns) and uses SQL. (Structured query language)
+
+Key features:
+
+Data stored in tables
+Uses primary key & foreign key
+Relationships between tables
+ACID properties (important for transactions)
+
+Examples:
+
+MySQL
+Oracle
+PostgreSQL
+SQL Server
+
+
+
+2. NoSQL Databases:
+------------------
+NoSQL databases are designed for:
+
+Large-scale data
+High performance
+Flexible structure
+
+Key features:
+
+Schema-less (no fixed table structure)
+Stores data as JSON, key-value, documents
+Used in big data & real-time apps
+
+Types of NoSQL DB:
+------------------
+
+| Type      | Example   |
+| --------- | --------- |
+| Key-Value | Redis     |
+| Document  | MongoDB   |
+| Column    | Cassandra |
+| Graph     | Neo4j     |
+
+example in (MongoDB):
+{
+  "name": "raja",
+  "skills": ["Java", "Spring", "MySQL"]
+}
+		Different Between DB and DBMS
+		-----------------------------
+|   Database (DB)          |   DBMS                                        |
+| ------------------------ | --------------------------------------------- |
+| Collection of data       | Software to manage that data                  |
+| Just raw storage         | Provides tools to access, update, secure data |
+| Example: A student table | Example: MySQL, Oracle                        |
+
+
+Components Inside DBMS:
+-----------------------
+1. Query Parser:
+	DBMS checks query syntax.
+2. Optimizer:
+	Decides best way to find students in class 10 (index search vs full scan).
+3. Execution:
+	Fetches matching rows from storage.
+4. DDL Compiler:
+	Handles Data Definition Language commands (like CREATE TABLE, ALTER TABLE).
+	DML Compiler
+5. Query Optimizer:
+	Decides the most efficient way to execute 
+		queries (e.g., use an index instead of scanning the whole table).
+6. Transaction Manager:
+	Ensures ACID properties (Atomicity, Consistency, Isolation, Durability) 
+	to safe and reliable transactions.
+7. Buffer Manager:
+	Manages data in memory (RAM) to reduce slow disk reads.
+8. Recovery Manager:
+	Restores data after crashes or failures using logs & backups.
+9. Authorization Manager
+	Ensures security (only authorized users can access data).
+	
+DBMS Architectures:
+------------------
+A DBMS architecture defines how users, applications, and the database are connected.
+There are mainly 4 types: 1-Tier, 2-Tier, 3-Tier, and N-Tier.
+	
+1-Tier Architecture:
+--------------------
+Everything happens on a single machine.
+The user, application, and DBMS all run on the same system.
+
+2-Tier Architecture:
+--------------------
+Here, we separate the application (client) and the database (server).
+The client (UI app) talks directly to the DBMS server.
+A Java Spring application that connects to MySQL using JDBC.
+
+3-Tier Architecture:
+--------------------
+Adds a middle layer (application server) between the client and DB.
+Client → Application Server → DB Server.
+Application server handles business logic, security, validation.
+
+Client: Browser (UI)
+Middle: Spring Boot/Node.js/PHP server
+DB Server: MySQL/Oracle
+
+N-Tier Architecture (Multi-Tier):
+---------------------------------
+Common in enterprise-level applications.
+micro-service projects
+
+
+ACID Properties in DBMS:
+------------------------
+transaction -> a single logical unit of work
+DBMS uses ACID to make sure transactions are safe and reliable.
+
+1. Atomicity ("All or Nothing"):
+--------------------------------
+-> A transaction should be fully completed or not done at all.
+-> If any step fails, the whole transaction rolls back.
+example:
+	-> If money is deducted from A but not added to B (due to error),
+	-> the DBMS will rollback to the original state (A still has money).
+2. Consistency ("Valid State"):
+-------------------------------
+-> A transaction should take the database from one valid state to another valid state.
+-> No rules/constraints should be broken.
+example:
+	If a column "Age" must be positive, 
+		inserting Age = -5 is invalid → DBMS won’t allow it.
+3. Isolation ("No Interference"):
+--------------------------------
+-> When multiple transactions run at the same time, 
+	they should not affect each other’s correctness.
+-> DBMS ensures concurrent transactions appear as if they
+		were executed one after another.
+example:
+	-> Two people booking the last movie ticket at the same time.
+	-> Without isolation → both might get the ticket (wrong).
+	-> With isolation → only one succeeds, the other gets “Sold Out.”
+4. Durability ("Permanent"):
+----------------------------
+-> Once a transaction is committed, the changes are permanent, even if the system crashes.
+-> DBMS uses logs and backups to restore data.
+
+| Property        | Meaning                        | Example (Bank Transfer)                        |
+| --------------- | ----------------------------   | ---------------------------------------------- |
+|  Atomicity      | All steps succeed or none      | Deduct from A, add to B — both must happen     |
+|  Consistency    | DB rules not violated          | Balance never becomes negative if rule says so |
+|  Isolation      |   Transactions don’t interfere | Two people can’t take the same seat            |
+|  Durability     | Once saved, always saved       | Power cut won’t undo a completed transfer      |
+
+--------------------------------------------------------------------------------------------------------
+
+show databases;
+ 
+ create database program_03;
+ use program_03;
+ show tables;
+ 
+ 
+ drop database program_03;
+  
+ use program_01;
+ show tables;
+ 
+use program_03; 
+ create table sample ( 
+ id int,
+ name varchar(20),
+ salary float(7,2));  -- 10000.00
+ 
+show tables;
+describe sample;
+desc sample;
+ 
+ insert into sample value(1,"raja", 10000.00);
+ insert into sample value(2,"kumar", 10000.00);
+ insert into sample value(3,"deepak", 10000.00);
+ 
+ select id,name from sample;
+ 
+ select name,salary from sample where name = "kumar";
+
+-------------------------------------------------------------------------------------------------
+
+
+DataTypes:
+----------
+Character Data:
+---------------
+char - stores fixed length string of length (Max 255 bytes)
+	eg:
+		name char(5),
+varchar - stores variable length string of length (Max 65535 bytes)
+
+shows various character sets that are supported:
+
+SHOW CHARACTER SET; -- latin1 is the default character set.
+
+We can also choose a specific character set like below,
+
+varchar(10) character set utf8    -- the particular column is set to utf8
+create database foreign_sales character set utf8;   -- entire database is set to utf8
+
+Text Data:
+----------
+tinytext     - 255 
+text         - 65,535
+Mediumtext   - 16,777,215
+Longtext     - 4,294,967,295
+
+BLOB Data: (Binary Large Object)
+--------------------------------
+TinyBlob, Blob, MediumBlob, LongBlob
+
+Numerical Data:
+---------------
+1. Whole Numbers:
+here, (Tinyint is used to store Bool or Boolean)
+tinyint       
+smallint
+Mediumint
+Int
+BigInt     - 18,446,744,073,709,551,615
+
+Decimal Numbers:
+----------------
+| Type   | Storage | Precision  | // 20000.00 - (7,2)
+| ------ | ------- | ---------- |              1.5 + 1.1     (0000002.06)
+| FLOAT  | 4 bytes | ~7 digits  |   float(p,a)  (0000001.05)
+| DOUBLE | 8 bytes | ~15 digits |
+
+DECIMAL: 23.04 (4,2)
+
+Exact numeric data type
+Stored as string internally
+No rounding errors
+
+| ENUM                         | SET                       |
+| ---------------------------- | ------------------------- |
+| Stores only one value        | Stores multiple values    |
+| Example: Male                | Example: Java,SQL         |
+| Used for fixed single choice | Used for multiple choices |
+
+> Table Constraints
+	-> PRIMARY KEY
+	-> FOREIGN KEY (H)           
+	-> UNIQUE
+	-> NOT NULL
+	-> DEFAULT
+	-> AUTO_INCREMENT
+	-> CHECK
+
+Constraint:
+-----------
+A constraint in a database is a rule applied to a table or column that controls 
+what data is allowed to be stored.
+
+| Constraint     | Purpose                    |
+| -------------- | -------------------------- |
+| PRIMARY KEY    | Unique row identifier      |
+| UNIQUE         | Prevent duplicate values   |
+| NOT NULL       | Mandatory value            |
+| DEFAULT        | Auto value if not provided |
+| AUTO_INCREMENT | Auto-generate numbers      |
+
+PRIMARY KEY:
+------------
+Uniquely identifies each row in a table
+
+Cannot be NULL
+
+Only one primary key per table
+
+CREATE TABLE student (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    dept VARCHAR(30)
+);
+
+id must be unique and not null
+
+UNIQUE:
+-------
+Ensures all values in a column are different
+
+Allows NULL values (only one NULL in MySQL)
+
+CREATE TABLE employee (
+    emp_id INT,
+    email VARCHAR(100) UNIQUE
+);
+
+No two employees can have the same email
+
+NOT NULL:
+---------
+Column must have a value
+
+NULL values are not allowed
+
+CREATE TABLE user (
+    user_id INT,
+    username VARCHAR(50) NOT NULL
+);
+
+Cannot insert a row without username
+
+DEFAULT:
+--------
+Sets a default value if no value is provided during insert
+
+CREATE TABLE orders (
+    order_id INT,
+    status VARCHAR(20) DEFAULT 'PENDING'
+);
+
+
+INSERT INTO orders (order_id) VALUES (101);
+
+status will automatically be PENDING
+
+AUTO_INCREMENT:
+--------------
+Automatically generates a unique number
+
+Usually used with PRIMARY KEY
+
+CREATE TABLE product (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100)
+);
+
+INSERT INTO product (product_name) VALUES ('Laptop');
+INSERT INTO product (product_name) VALUES ('Mobile');
+
+id will be generated automatically: 1, 2, 3...
+
+---------------------------------------------------------------------------------
+create database program_09;
+use program_09;
+
+create table test
+(
+id int,
+name varchar(30)
+);
+
+desc test;
+select * from test;
+-- alter
+-- change table name
+alter table test rename to test1;
+
+-- change column name
+alter table test1 rename column name to first_name;
+
+-- drop table
+drop table if exists test1;
+-- drop database
+drop database if exists program_09;
+
+-- drop a column
+alter table test drop column name;
+
+-- add new column
+alter table test add column name varchar(20);
+
+-- change column datatype
+alter table test modify column name char(5) null;
+ 
+alter table test add column last_name varchar(20);
+ 
+ -- add constraint to a column
+alter table test add constraint n unique (last_name);
+-- drop a constraint to a column
+
+-- another examples
+alter table test drop constraint n;
+
+alter table test add constraint pk primary key(id);
+----------------------------------------------------------------------------
+
+create database program_10;
+use program_10;
+
+create table user
+(
+id int primary key,
+name varchar(30),
+age tinyint,
+email varchar(30),
+mobile_number varchar(10)
+);
+
+select * from user;
+
+-- crud operations
+
+-- insert (create)
+-- 1. 1st way
+insert into user values (1, 'deepak', 22, 'deepak@gmail.com', '1234567890');
+-- 2. 2st way
+insert into user (id, name, age, mobile_number) values (2, 'ashok', 22, '1234567890');
+-- 3. 3st way
+insert into user values 
+(3, 'arun', 22, 'arun@gmail.com', '1234567890'),
+(4, 'AA', 22, 'AA@gmail.com', '1234567890'),
+(5, 'BB', 22, 'BB@gmail.com', '1234567890'),
+(6, 'CC', 22, 'CC@gmail.com', '1234567890'),
+(7, 'DD', 22, 'DD@gmail.com', '1234567890'),
+(8, 'EE', 22, 'EE@gmail.com', '1234567890');
+
+-- read (fetching data from table)
+-- 1. read all data
+select * from user;
+-- 2. read a single data from table using where clause
+select * from user where id = 5;
+
+-- update 
+-- 1. single data
+update user set email = 'sample@gmail.com' where id = 8;
+-- 2. multiple data
+update user set email = 'sample@gmail.com';
+
+-- delete 
+-- deleted data can recoverable
+-- 1. delete a specific or single row
+delete from user where name = 'arun';
+-- 2. delete entire table data without affect table structure 
+delete from user;
+
+-- truncate
+-- faster than delete
+-- once deleted can not recoverable
+-- delete entire table data without affect table structure
+truncate user;
+
+--------------------------------------------------------------------------------------------------
+
+Pagination:
+-----------
+Pagination is the process of dividing a large dataset into 
+smaller chunks (pages) instead of loading everything at once.
+
+Why Pagination is Important?
+Improves performance
+Reduces memory usage
+Better user experience (like Google search pages)
+Faster API responses
+
+--------------------------------------------------------------------------------------------
+
+-- Pagination (LIMIT & OFFSET)
+
+create database program_12;
+use program_12;
+
+CREATE TABLE employee (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    department VARCHAR(30),
+    salary DECIMAL(10,2),
+    city VARCHAR(30)
+);
+
+INSERT INTO employee(name, department, salary, city) VALUES
+('Arun',   'HR',      25000, 'Chennai'),
+('Bala',   'IT',      40000, 'Bangalore'),
+('Charan', 'IT',      45000, 'Hyderabad'),
+('David',  'Sales',   30000, 'Mumbai'),
+('Eshan',  'HR',      28000, 'Chennai'),
+('Farook', 'IT',      50000, 'Pune'),
+('Gokul',  'Finance', 35000, 'Delhi'),
+('Hari',   'Sales',   32000, 'Mumbai'),
+('Imran',  'IT',      42000, 'Bangalore'),
+('John',   'Finance', 38000, 'Chennai'),
+('Kiran',  'HR',      27000, 'Hyderabad'),
+('Lokesh', 'IT',      46000, 'Pune'),
+('Manoj',  'Sales',   31000, 'Delhi'),
+('Naveen', 'Finance', 39000, 'Chennai'),
+('Omar',   'IT',      52000, 'Bangalore');
+
+select * from employee limit 5 , 10;
+-- 15 
+-- 5
+-- 3
+-- offset = (3 - 1) * 5 = 10
+-- (pageNo - 1) * pagesize
+-----------------------------------------------------------------------------------------------------
+
+-- distinct (remove duplicates):
+
+create database program_11;
+use program_11;
+CREATE TABLE employee (
+    id INT,
+    name VARCHAR(20),
+    department VARCHAR(20)
+);
+
+INSERT INTO employee VALUES
+(1, 'Arun', 'HR'),
+(2, 'Bala', 'IT'),
+(3, 'Kumar', 'IT'),
+(4, 'Ravi', 'HR'),
+(5, 'John', 'Sales');
+
+select distinct department from employee;
+
+---------------------------------------------------------------------------------------------
+
+Operators: 
+----------
+Operators is used with where clause
+
+1.Arithmetic Operators:
+Arithmetic Operators in SELECT
+| Operator | Description         | Example  |
+| -------- | ------------------- | -------- |
+|  +       | Addition            |  10 + 5  |
+|  -       | Subtraction         |  10 - 5  |
+|  *       | Multiplication      |  10 * 5  |
+|  /       | Division            |  10 / 5  |
+|  %       | Modulus (Remainder) |  10 % 3  |
+
+
+2. Comparison Operators:
+
+| Operator    | Meaning          |
+| ----------- | ---------------- |
+|  =          | Equal            |
+|  !=     <>  | Not equal        |
+|  >          | Greater than     |
+|  <          | Less than        |
+|  >=         | Greater or equal |
+|  <=         | Less or equal    |
+
+
+3. Logical Operators:
+
+AND
+OR
+Not
+
+4. BETWEEN Operator:
+Used to filter values in a range.
+
+5. IN Operator
+6. LIKE Operator
+7. IS NULL / IS NOT NULL
+
+--------------------------------------------------------------------------------------------------
+
+select 10 + 2 as result;
+select 10 - 2 as result;
+select 10 * 2 as result;
+select 10 / 2 as result;
+select 10 % 2 as result;
+
+select name, salary * 12 as annual_salary from employee;
+select name, salary / 12 as monthly_salary from employee;
+update employee set salary = salary / 12;
+
+select name as employee_name  from employee;
+
+-- = equal
+select name, salary from employee where salary = 45000;
+select name, salary from employee where id = 5;
+select name, salary from employee where name = 'Bala';
+-- not equal
+select name, salary from employee where name != 'Bala';
+select name, salary from employee where name <> 'Bala';
+-- > / >=
+select name, salary from employee where salary >= 35000;
+
+
+-- < / <=
+select name, salary from employee where salary <= 35000;
+
+-- logical operators
+-- and  
+-- 30000 - 40000
+select name, salary from employee where salary >= 30000 and salary <= 40000;
+-- or
+select name, salary from employee where salary = 30000 or name = 'arun';
+-- not
+select name, salary from employee where not (salary >= 30000 and salary <= 40000);
+
+-- BETWEEN
+select name, salary from employee where salary BETWEEN 30000 and 40000;
+
+-- IN
+select name, salary from employee where salary not in (30000, 35000, 37000);
+select name, salary from employee where salary = 30000 or salary = 35000 or salary = 37000;
+
+-- LIKE
+select name from employee where name like '%d';
+
+insert into employee (name, department, city)values ('AA', 'IT', 'Bangalore');
+insert into employee (name, department)values ('BB', 'IT');
+
+-- is null
+select * from employee where city is null;
+select * from employee where salary is null;
+
+-- is not null
+select name from employee where salary is not null;
+
+
+-----------------------------------------------------------------------------------------------
+
+Clauses:
+--------
+In MySQL, clauses are keywords used in a SQL statement to define what data you 
+want and how you want it.
+Each clause performs a specific role in querying, filtering, sorting, or grouping data.
+SQL query as a sentence and clauses as its parts.
+
+SELECT Query Structure:
+
+SELECT column_name
+FROM table_name
+WHERE condition
+GROUP BY column_name
+HAVING condition
+ORDER BY column_name
+LIMIT number;
+
+SELECT Clause:
+
+Used to choose columns to display.
+SELECT name, salary FROM employee;
+
+FROM Clause:
+
+Specifies which table to read data from.
+SELECT * FROM employee;
+
+WHERE Clause
+
+Filters rows based on conditions.
+SELECT * FROM employee WHERE department = 'IT';
+
+GROUP BY Clause
+
+Groups rows with same values (used with aggregate functions).
+SELECT department, COUNT(*) 
+FROM employee
+GROUP BY department;
+
+HAVING Clause:
+
+Filters groups (used after GROUP BY).
+SELECT department, COUNT(*) 
+FROM employee
+GROUP BY department
+HAVING COUNT(*) > 5;
+
+ORDER BY Clause:
+
+Sorts the result set by ASC or DESC
+SELECT * FROM employee ORDER BY salary DESC;
+
+LIMIT Clause:
+
+Restricts the number of rows returned.
+SELECT * FROM employee LIMIT 5;
+
+DISTINCT Clause:
+
+Removes duplicate values.
+SELECT DISTINCT department FROM employee;
+
+(hold)
+JOIN 
+UNION
+------------------------------------------------
+
+create database chalange;
+drop database chalange;
+use chalange;
+create table employees(
+id int primary key auto_increment,
+name varchar(20),
+gender enum("male","female","other"),
+salary double(15,4),
+department set("IT","HR","Manager","TL","Tecnical sapport"),
+dob date,
+phone_number longtext 
+);
+
+alter table employees add column age int(3) check(age>=21);
+delete from employees;
+select * from employees;
+desc employees;
+insert into employees(name,gender,salary,department,dob,phone_number,age) 
+value("Mohammed","male","23000","IT",'2000-05-12',65455678,26),
+("Shahin","male","25000","IT",'2000-06-12',65434567,26),
+("Madhavan","other","25000","TL",'2009-09-9',987654567,24),
+("Mahin","male","50000","Manager",'1997-11-01',345678765,30),
+("Aravind","male","30000","TL",'2001-03-06',987654456,25),
+("Narmatha","female","35000","HR",'2000-01-31',67678678,26),
+("Gaja","female","40000","HR",'2002-08-12',68769678,26),
+("Visal","male","20000","Manager",'2000-06-01',654335678,26);
+
+
+
+-- aggregate functions
+-- count
+select count(*) as count from employees;
+
+-- sum
+select sum(salary) as sum from employees;
+
+-- avg
+select avg(salary) from employee;
+
+-- min 
+select name, min(salary) from employees;
+
+-- max
+select name, max(salary) from employees;
+
+ --  group by 
+select department,count(name) from employees group by department;
+
+-- having 
+select department,count(name) from employees group by department having count(name)<=2;
+
+-- order by 
+select department,count(name) from employees group by department having count(name)>=2 order by department desc;
+
+-- group by max salary 
+select department,max(salary) from employees group by department;
+
+-------------------------------------------------
+create database program_13;
+use program_13;
+
+create table department (
+dep_id int primary key,
+dep_name varchar(30)
+);
+
+insert into department values
+(1, 'HR'),
+(2, 'Developer'),
+(3, 'Testing');
+
+select * from department;
+
+
+create table employees (
+emp_id int primary key auto_increment,
+emp_name varchar(30) not null,
+dept_id int,
+constraint fk foreign key(dept_id) references department(dep_id)
+);
+
+desc employees;
+
+select * from employees;
+
+insert into employees (emp_name, dept_id)values('AA', 1);
+insert into employees (emp_name, dept_id)values('BB', 1);
+insert into employees (emp_name, dept_id)values('CC', 2);
+insert into employees (emp_name, dept_id)values('DD', 2);
+insert into employees (emp_name, dept_id)values('EE', 3);
+insert into employees (emp_name, dept_id)values('FF', 4); -- error
+------------------------------------------------------------------------------------------------
+
+
+Foreign Key:
+------------
+A foreign key (FK) is a constraint used to link two tables.
+It ensures that the value in a column (or group of columns) in one table 
+must exist in another table’s primary key.
+
+foreign key one to one (use uniq in employees tabel for dep_id )
+-----------------------------------------------------------------
+create database forin_key;
+use forin_key;
+
+create table department(
+dep_id int primary key,
+dep_name varchar(15)
+);
+insert into department value(1,"HR");
+insert into department value(2,"Maneger");
+insert into department value(3,"TL");
+insert into department value(4,"salse");
+
+create table employees(
+emp_id int primary key auto_increment,
+emp_name varchar (20),
+dep_id int unique,
+constraint fk foreign key(dep_id) references department(dep_id)
+);
+drop table employees;
+insert into employees (emp_name,dep_id) value ("shahin",1),
+ ("mahin",2),("Mohammed",3),("Raja",4);
+ select * from employees;
+ alter table employees drop constraint fk;
+
+------------------------------------
+forin_key one to many (with out useing uniq in employees table )
+----------------------------------------------------------------
+create database forin_key;
+use forin_key;
+
+create table department(
+dep_id int primary key,
+dep_name varchar(15)
+);
+insert into department value(1,"HR");
+insert into department value(2,"Maneger");
+insert into department value(3,"TL");
+insert into department value(4,"salse");
+
+create table employees(
+emp_id int primary key auto_increment,
+emp_name varchar (20),
+dep_id int unique,
+constraint fk foreign key(dep_id) references department(dep_id)
+);
+drop table employees;
+insert into employees (emp_name,dep_id) value ("shahin",1),
+ ("mahin",2),("Mohammed",3),("Raja",4);
+ select * from employees;
+ alter table employees drop constraint fk;
+
+--------------------------------------------------------
+foreign key Many_to_Many
+-------------------------------
+create database Many_to_Many;
+use Many_to_Many;
+drop database Many_to_Many;
+create table students(
+std_id int primary key,
+std_name varchar(20)
+);
+insert into students value(1,"visal"),(2,"raja"),(3,"kamal"),(4,"shahin");
+
+create table course(
+curs_id int primary key,
+curs_name varchar(20)
+);
+insert into course value(1,"java"),(2,"python"),(3,"js"),(4,"angu");
+
+create table student_course(
+std_id int,
+curs_id int,
+primary key(std_id ,curs_id ),
+constraint sid foreign key (std_id) references students(std_id),
+constraint cid foreign key(curs_id) references course(curs_id)
+
+);
+insert into student_course value(1,1),(2,1),(3,2);
+insert into student_course value(3,1),(2,2),(2,3);
+select*from student_course;
+ alter table student_course drop constraint sid;
+desc student_course;
+drop table student_course;
+---------------------------------------------------------------------------------
+Joins 
+------
+1. INNER JOIN
+2. LEFT JOIN
+3. RIGHT JOIN
+4. FULL JOIN (simulated in MySQL)
+5. CROSS JOIN
+6. SELF JOIN
+
+JOIN
+
+A JOIN is used in SQL to combine rows from two or more 
+tables based on a related column between them.
+
+1. INNER JOIN:
+Returns only matching records from both tables.
+
+
+SELECT s.name, d.dept_name
+FROM student s
+INNER JOIN department d
+ON s.dept_id = d.dept_id;
+
+2. LEFT JOIN:
+----------
+all records from the LEFT table
+matched records from the RIGHT table
+
+If no match exists → NULL
+
+
+SELECT students.name, marks.mark
+FROM students
+LEFT JOIN marks
+ON students.id = marks.id;
+
+3. RIGHT JOIN:
+--------------
+all records from RIGHT table
+matched records from LEFT table
+
+SELECT students.name, marks.mark
+FROM students
+RIGHT JOIN marks
+ON students.id = marks.id;
+
+4. FULL JOIN:
+-------------
+MySQL does not directly support FULL OUTER JOIN.
+But we can simulate it using:
+
+LEFT JOIN
+UNION
+RIGHT JOIN
+
+example:
+
+SELECT students.name, marks.mark
+FROM students
+LEFT JOIN marks
+ON students.id = marks.id
+
+UNION
+
+SELECT students.name, marks.mark
+FROM students
+RIGHT JOIN marks
+ON students.id = marks.id;
+
+5. CROSS JOIN:
+--------------
+Returns Cartesian Product.
+Each row from first table combines with every row from second table.
+
+SELECT colors.color, sizes.size
+FROM colors
+CROSS JOIN sizes;
+
+6. SELF JOIN:
+-------------
+A table joins with itself.
+Used when rows in the same table are related.
+
+-------------------------------------------------
+Joins 
+-------------------
+create database join_table;
+use join_table;
+drop database join_table;
+create table departments(
+dep_id int primary key,
+dep_name varchar(20)
+);
+INSERT INTO departments VALUES
+(1, 'HR'),
+(2, 'IT'),
+(3, 'Sales'),
+(4, 'Marketing');
+create table employees(
+ emp_id int primary key,
+ emp_name varchar(20),
+ dep_id int,
+ foreign key(dep_id) references departments(dep_id)
+ ON DELETE CASCADE
+ ON update cascade,
+ manager_id INT
+ 
+);
+INSERT INTO employees VALUES
+(101, 'Mani', 1, NULL),
+(102, 'Arun', 2, 101),
+(103, 'Kiran', 2, 101),
+(104, 'Rahul', 3, 102),
+(105, 'Sneha', NULL, 102);
+
+select * from employees;
+create table projects(
+pro_id int primary key,
+pro_name varchar(20),
+emp_id int,
+foreign key (emp_id) references employees(emp_id)
+ON DELETE CASCADE
+ ON update cascade
+);
+INSERT INTO projects VALUES
+(201, 'Banking App', 102),
+(202, 'E-Commerce', 103),
+(203, 'CRM System', 104),
+(204, 'AI Chatbot', NULL);
+
+-- Inner join
+select e.emp_name,d.dep_name from employees e inner join departments d on e.dep_id=d.dep_id;
+select pro_name,emp_name from projects p inner join employees e on p.emp_id=e.emp_id; 
+
+-- left join , right join
+
+select e.emp_name,d.dep_name from departments d left join employees e on e.dep_id=d.dep_id;
+select e.emp_name,d.dep_name from departments d right join employees e on e.dep_id=d.dep_id;
+
+select pro_name,emp_name from employees e left join projects p on p.emp_id=e.emp_id;
+
+-- union - full join not sapport in mysql  so use to union
+
+select e.emp_name,d.dep_name from departments d left join employees e on e.dep_id=d.dep_id
+union
+select e.emp_name,d.dep_name from departments d right join employees e on e.dep_id=d.dep_id;
+
+-- cross join --4x4
+
+select dep_name,pro_name from departments cross join projects;
+
+-- self join
+
+select a.emp_name, b.emp_name as manager from employees a inner join employees b on a.manager_id=b.emp_id;
+select a.emp_name, b.emp_name as manager from employees a left join employees b on a.manager_id=b.emp_id;
+
+-- ON DELETE CASCADE
+delete from departments where dep_id=1;
+
+-- ON UPDATE CASCADE
+update  departments set  dep_id = 5 WHERE dep_id = 2;
+
+------------------------------------------------------------------------------------
+
+Index in MySQL
+--------------
+An index is a special data structure that helps MySQL find rows 
+faster instead of scanning the entire table.
+
+Without index:
+
+	MySQL checks every row → Full Table Scan
+
+With index:
+
+	MySQL jumps directly to matching rows → Fast Search
+Types of Indexes:
+-----------------
+1. Clustered Index
+
+A clustered index determines the physical storage 
+order of rows in the table.
+The actual table data is stored in sorted order based 
+on the clustered index column.
+PRIMARY KEY automatically becomes the clustered index.
+2. Non-Clustered Index:
+-----------------------
+A non-clustered index stores:
+
+indexed column values
+pointer/reference to actual rows
+
+Table data is stored separately.
+MySQL creates a separate B-Tree index structure internally.
+
+create index:
+-------------
+CREATE INDEX index_name ON employee(column_name);
+
+show index details:
+-------------------
+SHOW INDEX FROM table_name;
+
+---------------------------------------------------------------------------------
+
+View
+----
+-> A View in MySQL is a virtual table created from a SQL query.
+	It does not store data physically (normally).
+-> Instead, it stores the SQL query and shows data from 
+	one or more tables whenever you access it.
+syntax:
+-------
+CREATE VIEW view_name AS
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+
+Advantages of Views:
+--------------------
+1. Security
+Hide sensitive columns.
+2. Simplifies Complex Queries
+Instead of writing joins repeatedly
+3. Reusability
+Write query once and use everywhere.
+4. Data Abstraction
+Users see only required data.
+
+--------------------------------------------------------------------------------------------------
+
+UNION:
+------
+UNION is used to combine the results of two or more SELECT 
+queries into a single result set. It removes duplicate rows by default.
+
+Important Rules of UNION
+-------------------------
+Number of columns must be the same in all SELECT queries
+
+Data types must be compatible
+	
+Column names are taken from the first SELECT
+
+Duplicates are removed automatically
+
+
+syntax:
+
+SELECT col1, col2 FROM table1
+UNION
+SELECT col1, col2 FROM table2;
+
+
+| UNION                   | JOIN              |
+| ----------------------- | ----------------- |
+| Combines rows           | Combines columns  |
+| Same structure required | Relation via keys |
+| Vertical merge          | Horizontal merge  |
+
+UNION ALL:
+----------
+If you want duplicates also, use UNION ALL
+
+syntax:
+SELECT col1, col2 FROM table1
+UNION ALL
+SELECT col1, col2 FROM table2;
+
+-------------------------------------------------
+ create database index_view_union;
+use index_view_union;
+
+create table employee_1(
+empid int primary key,
+ename varchar(30),
+job_desc varchar(20),
+salary int
+
+) ;
+insert into employee_1 value(1,"shahin","salse",15000);
+insert into employee_1 value(2,"mahin","HR",30000);
+insert into employee_1 value(3,"muthu","salse",10000);
+insert into employee_1 value(4,"aravind","ceo",25000);
+insert into employee_1 value(5,"dow","salse",20000);
+insert into employee_1 value(6,"resh","salse",18000);
+insert into employee_1 value(7,"namu","admin",25000);
+insert into employee_1 value(8,"rasin","engineer",40000);
+ 
+ create table employee_2(
+empid int primary key,
+ename varchar(30),
+job_desc varchar(20),
+salary int
+
+) ;
+drop table employee;
+
+ -- fetch the data fast becase it's find the index value 
+ -- create index
+ create index emp_id on employee_1(empid);
+ select * from employee_1 where empid= 1 ;
+ 
+ -- create view 
+ create view emp_salary as 
+ select ename ,salary from employee_1;
+ insert into employee_1 value(11,"gokul","salse",56666);
+  select * from emp_salary;
+
+-- union and union all
+
+insert into employee_2 value(1,"shahin","salse",15000),
+(2,"mahin","HR",30000),
+(3,"muthu","salse",10000),
+(4,"aravind","ceo",25000),
+(5,"dow","salse",20000),
+(6,"resh","salse",18000),
+(7,"namu","admin",25000),
+(8,"rasin","engineer",40000);
+
+-- union remove the duplicate values if have same value in two table only show the one value 
+select * from employee_1
+union 
+select * from employee_2;
+
+-- it's not remove the duplicate show the all values
+-- union all
+select * from employee_1
+union all
+select * from employee_2;
+
+---------------------------------------------------------------------------------
+
+Stored Procedure
+----------------
+-> A stored procedure in MySQL is a pre-written SQL program 
+	that is saved in the database and can be executed whenever needed.
+Reusability – write once, use many times
+Performance – runs faster because it’s precompiled
+Security – restrict direct access to tables
+Maintainability – logic is stored in one place
+
+syntax:
+-------
+Defining stored procedure
+-------------------------
+DELIMITER // or $$
+
+CREATE PROCEDURE procedure_name()
+BEGIN
+    -- SQL statements
+    SELECT * FROM table_name;
+END // or $$
+
+DELIMITER ;
+
+calling stored procedure:
+-------------------------
+call procedure_name();
+if procedure have parameters
+call procedure_name(para1, para2);
+
+Parameter types:
+----------------
+1. IN Parameter
+
+IN parameter is used to pass value into procedure.
+
+Default parameter type is IN
+You can only send value
+Cannot return modified value
+
+2. OUT Parameter
+
+OUT parameter is used to return value from procedure.
+
+3. INOUT Parameter
+
+INOUT can both:
+
+receive value
+return modified value
+
+-------------------------------------------------------------------------------
+
+Functions:
+----------
+
+Built-in functions
+---------------------
+String Functions
+Math/Numeric Functions
+Date & Time Functions
+Aggregate Functions 
+Conditional Functions
+
+String Functions:
+--------------------
+Used to manipulate text values.
+UPPER()
+LOWER()
+LENGTH()
+CONCAT()
+SUBSTRING()
+REPLACE()
+TRIM()
+INSTR() - h
+
+Math / Numeric Functions:
+-----------------------------
+Used for calculations.
+ABS()
+CEIL()
+FLOOR()
+ROUND()
+MOD()
+POWER()
+SQRT()
+RAND()
+
+Date & Time Functions: (yyyy-mm-dd)
+-------------------------
+NOW() -> Current date and time.
+CURDATE() -> date only
+CURTIME() -> time only
+DATE(),YEAR(), MONTH(), DAY()
+DATEDIFF()
+interval -5 day
+date_add()
+date_sub()
+
+| Unit        | Meaning      |
+| ----------- | ------------ |
+| DAY         | Days         |
+| MONTH       | Months       |
+| YEAR        | Years        |
+| HOUR        | Hours        |
+| MINUTE      | Minutes      |
+| SECOND      | Seconds      |
+| WEEK        | Weeks        |
+| QUARTER     | 3 Months     |
+| MICROSECOND | Microseconds |
+
+Conditional Functions:
+-------------------------
+IF()
+IFNULL()
+CASE
+--------------------------------------------------------------------------
+
+Stored Procedure
+----------------
+-> A stored procedure in MySQL is a pre-written SQL program 
+	that is saved in the database and can be executed whenever needed.
+Reusability – write once, use many times
+Performance – runs faster because it’s precompiled
+Security – restrict direct access to tables
+Maintainability – logic is stored in one place
+
+syntax:
+-------
+Defining stored procedure
+-------------------------
+DELIMITER // or $$
+
+CREATE PROCEDURE procedure_name()
+BEGIN
+    -- SQL statements
+    SELECT * FROM table_name;
+END // or $$
+
+DELIMITER ;
+
+calling stored procedure:
+-------------------------
+call procedure_name();
+if procedure have parameters
+call procedure_name(para1, para2);
+
+Parameter types:
+----------------
+1. IN Parameter
+
+IN parameter is used to pass value into procedure.
+
+Default parameter type is IN
+You can only send value
+Cannot return modified value
+
+2. OUT Parameter
+
+OUT parameter is used to return value from procedure.
+
+3. INOUT Parameter
+
+INOUT can both:
+
+receive value
+return modified value
+
+Variables in Procedure:
+-----------------------
+Using DECLARE
+SET Statement Used to assign value.
+
+IF Statement:
+-------------
+
+syntax:
+
+IF condition THEN
+    statements;
+ELSE
+    statements;
+END IF;
+
+CASE Statement:
+----------------
+syntax:
+CASE
+    WHEN condition THEN 
+		statement
+    WHEN condition THEN
+		statement
+    ELSE
+		statement
+END CASE;
+
+ LOOP:
+--------
+LOOP & LEAVE
+
+WHILE Loop
+----------
+Syntax:
+
+WHILE condition DO
+    statements;
+END WHILE;
+
+REPEAT Loop:
+------------
+syntax:
+-------
+REPEAT
+    statements;
+UNTIL condition
+END REPEAT;
+
+LEAVE & ITERATE Statement
+
+---------------------------------------------------------------------------------
+
+Cursor:
+-------
+-> A Cursor in MySQL is used inside a Stored Procedure to process 
+	rows one by one from a query result.
+-> Normally SQL works on all rows together.
+-> But sometimes we need row-by-row processing like loops in 
+	programming languages.
+
+Cursor Lifecycle:
+-----------------
+1. DECLARE cursor
+2. OPEN cursor
+3. FETCH rows one by one
+4. CLOSE cursor
+
+syntax:
+-------
+DECLARE cursor_name CURSOR FOR
+SELECT column_name FROM table_name;
+
+OPEN cursor_name;
+
+FETCH cursor_name INTO variable;
+
+CLOSE cursor_name;
+
+NOT FOUND Handler:
+------------------
+When all rows are fetched, MySQL throws NOT FOUND condition.
+use this after the cursor declaration
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND
+---------------------------------------
+delimiter //
+create procedure print_employee_names()
+begin 
+	declare temp varchar(200) default '';
+    declare username varchar(30);
+    declare islast boolean default false;
+    
+    
+    
+    declare read_data cursor  for select emp_name from employee;
+    
+    DECLARE CONTINUE HANDLER FOR NOT FOUND
+		set islast = true;
+    
+    open read_data;
+    
+    my_loop: loop 
+    
+    fetch read_data into username;
+    set temp = concat(temp, ',', username);
+    
+    if islast then 
+		leave my_loop;
+    end if;
+    
+    end loop;
+    close read_data;
+    
+    select temp;
+
+end //
+delimiter ;
+
+drop procedure print_employee_names;
+
+call print_employee_names();
+--------------------------------------------------------------------------
+TRANSACTION Control language:
+------------------------------
+
+| Command                 | Purpose                  |
+| ----------------------- | ------------------------ |
+|  START TRANSACTION      | Start transaction        |
+|  COMMIT                 | Save changes permanently |
+|  ROLLBACK               | Undo changes             |
+|  SAVEPOINT              | Create checkpoint        |
+|  ROLLBACK TO SAVEPOINT  | Undo to specific point   |
+
+----------------
+create database transaction_practice;
+use transaction_practice;
+drop database transaction_practice; 
+create table user(
+id int primary key auto_increment,
+name varchar(20),
+amount decimal(10,2)
+); 
+
+insert into user(name,amount) value('shahin',5000),('mahin',3000),('visal',4000);
+drop table user;
+
+start transaction;
+savepoint point1;
+update user set amount=amount-1000 where name = 'shahin';
+savepoint point2;
+update user set amount=amount+1000 where name = 'mahin';
+
+select * from user;
+rollback to point1;
+rollback to point2;
+rollback;
+
+------------------------------------------------------------------------------------------
+
+Types of mysql queries:
+-----------------------
+1. DDL (Data Definition Language):
+----------------------------------
+Used to define or change database structure.
+
+CREATE
+ALTER
+DROP
+TRUNCATE
+RENAME
+
+2. DML (Data Manipulation Language):
+------------------------------------
+Used to insert, update, and delete data.
+
+INSERT
+UPDATE
+DELETE
+
+3. DQL (Data Query Language):
+-----------------------------
+Used to fetch data.
+
+SELECT
+
+4. DCL (Data Control Language):
+-------------------------------
+Used to control permissions.
+
+GRANT
+REVOKE
+
+5. TCL (Transaction Control Language):
+--------------------------------------
+Used to manage transactions.
+COMMIT
+ROLLBACK
+SAVEPOINT
+
+----------------------------------------------------------------------------------

@@ -1,0 +1,51 @@
+Collection Factory Methods:
+---------------------------
+| Interface   | Methods                            | Description                           |
+| ----------- | ---------------------------------- | ------------------------------------- |
+|  List       |  List.of(E... elements)            | Immutable list creation.              |
+
+|  Set        |  Set.of(E... elements)             | Immutable set creation.               |
+
+|  Map        |  Map.of(K, V, K, V, ...)           | Immutable map creation.               |
+|             |  Map.ofEntries(Map.Entry<K,V>...)  | Immutable map from entries.           |
+
+|  Map.Entry  |  Map.entry(K key, V value)         | Creates an immutable key-value entry. |
+
+
+Practice Code 
+
+
+
+
+import java.util.*;
+
+public class OfMethodClass {
+    public static void main(String[] args) {
+//       List<Integer> list= List.of(2,4,5,7,8,9);
+//       ArrayList<Integer> arr=new ArrayList<>(list);
+//        System.out.println(arr);
+
+//        ArrayList<Integer> arr=new ArrayList<>(List.of(3,6,9,2,4,7,6,3));
+//        arr.add(12);
+//        arr.set(4,2);
+//        System.out.println(arr);
+
+//        Set<Integer> set= Set.of(1,2,3,4,5,6,7,8);
+//        HashSet<Integer> hash=new HashSet<>(set);
+//        System.out.println(hash);
+
+//        Map<Integer,String> map= Map.of(1,"sample",2,"Sample 2",3,"sample 3");
+//        HashMap<Integer,String> has=new HashMap<>(map);
+//        System.out.println(has);
+//
+//        Map.Entry<Integer,String> entry=Map.entry(1,"sample 1");
+//        Map.Entry<Integer,String> entry1=Map.entry(2,"sample 2");
+//        Map.Entry<Integer,String> entry2=Map.entry(3,"sample 3");
+//
+//        Map<Integer,String> map=Map.ofEntries(entry,entry1,entry2);
+//        System.out.println(map);
+//
+//        HashMap<Integer, String> hm = new HashMap<>(Map.ofEntries(entry,entry1,entry2));
+//        System.out.println(hm);
+    }
+}

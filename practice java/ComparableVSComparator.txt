@@ -1,0 +1,9 @@
+| Feature                  | Comparable                  | Comparator                              |
+| ------------------------ | --------------------------- | --------------------------------------- |
+| Package                  |  java.lang                  |  java.util                              |
+| Method                   |  compareTo(Object o)        |  compare(Object o1, Object o2)          |
+| Sorting Logic            | Inside the class            | Outside the class                       |
+| Sorting Type             | Natural (default)           | Custom                                  |
+| Number of Sort Orders    | Only one                    | Multiple possible                       |
+| Modifies Original Class? | Yes (implements Comparable) | No (external logic)                     |
+| Example                  |  String ,  Integer ,  Date  | Custom ordering like by name, age, etc. |

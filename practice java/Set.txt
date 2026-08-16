@@ -1,0 +1,38 @@
+Set:
+----
+Set is a Collection that does not allow duplicate elements.
+
+| Feature            | Description                                                 |
+| ------------------ | ----------------------------------------------------------- |
+| Duplicate elements |   Not allowed                                               |
+| Null elements      |   Allowed (but only one)                                    |
+| Order              |   Depends on implementation                                 |
+| Index-based access |   Not supported                                             |
+| Thread-safe        |   Not synchronized                                          |
+| Performance        | Depends on implementation (HashSet, LinkedHashSet, TreeSet) |
+
+
+Methods:
+--------
+
+| Method                 | Description                         |
+| ---------------------- | ----------------------------------- |
+|  add(E e)              | Adds element if not already present |
+|  addAll(Collection c)  | Adds all unique elements            |
+|  remove(Object o)      | Removes element                     |
+|  contains(Object o)    | Checks existence                    |
+|  size()                | Returns number of elements          |
+|  clear()               | Removes all                         |
+|  isEmpty()             | Checks if empty                     |
+|  iterator()            | Returns iterator                    |
+|  toArray()             | Converts to array                   |
+
+
+when to use:
+------------
+
+| Use Case                          | Best Choice   |
+| --------------------------------- | ------------- |
+| Need only uniqueness              | HashSet       |
+| Need uniqueness + insertion order | LinkedHashSet |
+| Need uniqueness + sorted order    | TreeSet       |

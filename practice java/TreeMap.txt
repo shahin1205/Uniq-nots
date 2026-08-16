@@ -1,0 +1,93 @@
+TreeMap (class)
+---------------
+TreeMap is a part of java.util package and implements the NavigableMap interface,
+which extends SortedMap.
+It stores key–value pairs in sorted (ascending) order of keys by default 
+	(based on natural ordering or a custom Comparator you provide).
+
+Keys are always sorted (ascending by default).
+underlying Red-Black Tree (a self-balancing binary search tree) data structure.
+null keys not allowed.
+Not Thread safe.
+
+Node structure:
+---------------
+static final class Entry<K,V> implements Map.Entry<K,V> 
+{
+    K key;
+    V value;
+    Entry<K,V> left;
+    Entry<K,V> right;
+    Entry<K,V> parent;
+    boolean color; // RED or BLACK
+}
+
+TreeMap Works Internally
+
+Insertion:
+1. If the map is empty → create a root node (colored BLACK).
+2. Else, it compares the new key:
+	if key < current.key → go left
+	
+	if key > current.key → go right
+
+	if key == current.key → replace value.
+3. Insert the node as a red node (by rule).
+4. Rebalance the tree to maintain Red-Black Tree properties.
+
+Balancing Rules:
+----------------
+Every node is either red or black.
+The root is always black.
+All leaves (nulls) are considered black.
+Red nodes cannot have red children.
+Every path from a node to its descendant leaves has the same number of black nodes.
+
+1. Map Methods:
+| Method                                | Description                    | Example                        |
+| ------------------------------------- | ------------------------------ | ------------------------------ |
+|  V put(K key, V value)                | Add or update a key-value pair |  map.put(1, "Apple");          |
+|  V get(Object key)                    | Returns value for given key    |  map.get(1);                   |
+|  boolean containsKey(Object key)      | Checks if key exists           |  map.containsKey(2);           |
+|  boolean containsValue(Object value)  | Checks if value exists         |  map.containsValue("Banana");  |
+|  V remove(Object key)                 | Removes entry by key           |  map.remove(3);                |
+|  int size()                           | Returns number of entries      |  map.size();                   |
+|  void clear()                         | Removes all mappings           |  map.clear();                  |
+|  boolean isEmpty()                    | Returns true if map empty      |  map.isEmpty();                |
+|  Set<K> keySet()                      | Returns all keys               |  map.keySet();                 |
+|  Collection<V> values()               | Returns all values             |  map.values();                 |
+|  Set<Map.Entry<K,V>> entrySet()       | Returns all entries            |  map.entrySet();               |
+
+2. SortedMap Methods:
+| Method                                      | Description                                            | Example               |
+| ------------------------------------------- | ------------------------------------------------------ | --------------------- |
+|  K firstKey()                               | Returns the   lowest key                               |  map.firstKey();      |
+|  K lastKey()                                | Returns the   highest key                              |  map.lastKey();       |
+|  SortedMap<K,V> headMap(K toKey)            | All keys   less than toKey                             |  map.headMap(50);     |
+|  SortedMap<K,V> tailMap(K fromKey)          | All keys   greater than or equal to fromKey            |  map.tailMap(30);     |
+|  SortedMap<K,V> subMap(K fromKey, K toKey)  | All keys in   range [fromKey, toKey)                   |  map.subMap(10, 50);  |
+|  Comparator<? super K> comparator()         | Returns comparator used (or null for natural ordering) |  map.comparator();    |
+
+3. NavigableMap Methods:
+------------------------
+
+| Method                                                                                     | Description                         | Example                            |
+| ------------------------------------------------------------------------------------------ | ----------------------------------- | ---------------------------------- |
+|  Map.Entry<K,V> firstEntry()                                                               | Returns first (lowest key) entry    |  map.firstEntry();                 |
+|  Map.Entry<K,V> lastEntry()                                                                | Returns last (highest key) entry    |  map.lastEntry();                  |
+|  Map.Entry<K,V> ceilingEntry(K key)                                                        | Entry with   key ≥ given key        |  map.ceilingEntry(15);             |
+|  K ceilingKey(K key)                                                                       | Key with   ≥ given key              |  map.ceilingKey(15);               |
+|  Map.Entry<K,V> floorEntry(K key)                                                          | Entry with   key ≤ given key        |  map.floorEntry(15);               |
+|  K floorKey(K key)                                                                         | Key with   ≤ given key              |  map.floorKey(15);                 |
+|  Map.Entry<K,V> higherEntry(K key)                                                         | Entry with   key > given key        |  map.higherEntry(10);              |
+|  K higherKey(K key)                                                                        | Key with   > given key              |  map.higherKey(10);                |
+|  Map.Entry<K,V> lowerEntry(K key)                                                          | Entry with   key < given key        |  map.lowerEntry(10);               |
+|  K lowerKey(K key)                                                                         | Key with   < given key              |  map.lowerKey(10);                 |
+|  Map.Entry<K,V> pollFirstEntry()                                                           | Removes and returns first entry     |  map.pollFirstEntry();             |
+|  Map.Entry<K,V> pollLastEntry()                                                            | Removes and returns last entry      |  map.pollLastEntry();              |
+|  NavigableMap<K,V> descendingMap()                                                         | Returns reverse order view          |  map.descendingMap();              |
+|  NavigableSet<K> descendingKeySet()                                                        | Returns reverse order of keys       |  map.descendingKeySet();           |
+|  NavigableSet<K> navigableKeySet()                                                         | Returns normal order keys           |  map.navigableKeySet();            |
+|  NavigableMap<K,V> headMap(K toKey, boolean inclusive)                                     | Keys less than (or ≤ if true) toKey |  map.headMap(50, true);            |
+|  NavigableMap<K,V> tailMap(K fromKey, boolean inclusive)                                   | Keys ≥ (or > if false) fromKey      |  map.tailMap(30, false);           |
+|  NavigableMap<K,V> subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive)  | Range view with inclusiveness       |  map.subMap(20, true, 50, false);  |

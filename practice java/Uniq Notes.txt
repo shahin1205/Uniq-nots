@@ -1,0 +1,423 @@
+6. Thread Life Cycle:
+----------------------
+A thread in Java goes through several states:
+
+|   State           |   Description                                                                                  |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+|   NEW             | Thread object is created but  start()  not yet called.                                         |
+|   RUNNABLE        | After  start()  is called; thread is ready and waiting for CPU time. (Running is part of this) |
+|   RUNNING         | Thread is currently executing on CPU (conceptual state, inside RUNNABLE).                      |
+|   BLOCKED         | Thread is waiting to acquire a monitor lock to enter a  synchronized  block/method.            |
+|   WAITING         | Thread is waiting indefinitely for another thread action ( wait() ,  join() ).                 |
+|   TIMED_WAITING   | Thread is waiting for a specific time ( sleep() ,  wait(timeout) ,  join(timeout) ).           |
+|   TERMINATED      | Thread has completed execution ( run()  finished).                                             |
+
+Thread Scheduler:
+------------------
+Part of the JVM (Java Virtual Machine).
+It decides which thread from the runnable to executes first.
+The Thread Scheduler in Java uses a Ready Queue (Runnable Queue)
+
+It depends on:
+1. Thread priority (setPriority()).
+2. arrival time.
+
+
+
+--------------------------------------------------------------------------------------------------
+
+Synchronization:
+----------------
+-> Synchronization in Java is a mechanism to control 
+		the access to shared resources.
+-> synchronization is important to make sure multiple 
+	threads safely work on shared resources.
+-> In java synchronized key word is used to achieve 
+		synchronization.
+
+How many ways to achieve synchronization:
+-----------------------------------------
+1. synchronized non-static method
+	
+	public synchronized void add()
+	{
+		
+	}
+2. static synchronized method
+    
+	public synchronized static void add()
+	{
+		
+	}
+3. synchronized block
+	
+	public void add()
+	{
+		synchronized(this)
+		{
+		
+		}
+	}
+
+-------------------------------------------------------------------------------
+Inter-thread Communication:
+---------------------------
+It means two or more threads talking to each other to work together.
+
+| Method        | Meaning                                                           |
+| ------------- | ----------------------------------------------------------------- |
+|  wait()       | Thread goes to   waiting state  (it stops and releases the lock). |
+|  notify()     | Tells   one waiting thread   to wake up.                          |
+|  notifyAll()  | Tells   all waiting threads   to wake up.
+
+
+-----------------------------------------------------------------------------------------------
+
+DeadLock:
+---------
+-> Deadlock is one the situation in multithreading, where two or more threads 
+	are waiting for each other to release a lock.
+-> A set of threads are waiting for each other in a circular chain.
+		
+-> how deadlock occurs ?
+   -> Thread T1 locks Resource A and waits for Resource B 
+   -> Thread T2 locks Resource B and waits for Resource A
+      Now both threads are blocked forever this is a deadlock
+	  
+	How to Prevent Deadlock ?
+	-> Avoid unnecessary synchronization
+	-> use inter-thread-communication like wait and notify.
+
+----------------------------------------------------------------------------------
+
+Daemon Thread:
+--------------
+-> A daemon thread is a service provider Thread (background thread) that runs in support 
+	of other non-daemon(user) threads.
+-> When all user threads are done -> JVM automatically terminates -> all daemon threads 
+	stop immediately.
+	
+create daemon Thread using :
+t1.setDaemon(true);
+t2.setDaemon(true);
+
+--------------------------------------------------------------------------------------
+
+
+
+Design patterns:
+----------------
+Design patterns in Java are reusable, proven solutions to 
+commonly occurring problems in software design. 
+They are not specific pieces of code but rather templates or blueprints 
+that help developers create flexible, maintainable, and scalable 
+object-oriented applications.
+
+1. Creational Patterns:
+-----------------------
+These patterns deal with object creation aiming to create objects in a manner 
+suitable for the situation while hiding the instantiation logic.
+
+Singleton:
+----------
+	> Ensures a class has only one instance and provides a global point of access to it.
+		Problem solved:
+		---------------
+		You want only one object of a class to exist in entire application 
+			(e.g., config, cache, logger).
+Factory Method:
+---------------
+	> Defines an interface for creating an object, but lets subclasses 
+		decide which class to instantiate.
+		Problem solved:
+		---------------
+		> You want to create objects without exposing creation logic
+			and allow subclasses/factory to decide which class to create.
+		> switching one object to another is easy.
+Abstract Factory:
+-----------------
+	> Provides an interface for creating families of related 
+		or dependent objects without specifying their concrete classes.
+		Problem solved:
+		---------------
+		You need to create families of related objects together
+		without knowing their concrete classes.
+Builder:
+--------
+	> Separates the construction of a complex object from its representation, 
+		allowing the same construction process to create different representations.
+		Problem solved:
+		---------------
+		Object has many optional parts and should be built step-by-step
+		so that same process can build different versions.
+Prototype:
+----------
+	> Creates new objects by copying an existing object (the prototype).
+	Problem solved:
+	---------------
+	Creating an object is expensive or complex — instead of rebuilding,
+	you clone an existing object.
+
+------------------------------------------------------------------------------------
+
+Wrapper Class
+-------------
+-> A wrapper class is a class provided in java.lang package that allows primitive values 
+	to be treated as objects.
+-> Wrapper classes are immutable (values cannot be changed)
+-> Auto-boxing/unboxing simplifies code readability
+-> Boxing/unboxing may cause performance overhead if used excessively
+
+Purpose: To convert (wrap) primitive data types into objects 
+	— useful in Collections, Generics, and OOP features.
+	
+	wrapper classes
+	----------------
+	byte - Byte
+	int - Integer
+	short - Short
+	long - Long
+	float - Float
+	double - Double
+	char - Character
+	boolean - Boolean
+
+
+Wrapper class hierarchy
+------------------------
+except character and boolean all the wrapper classes extends 
+Number class, the number class is one of the abstract class
+the abstract methods precented like,
+	> intValue
+	> floatValue
+	> doubleValue
+	> byteValue
+	> shortValue
+	
+Boxing & Auto-Boxing (Primitive → Object):
+------------------------------------------
+1) Boxing (Manual Conversion):
+int i = 10;
+Integer y = Integer.valueOf(i);
+
+2) Auto Boxing (Automatic by Compiler):
+int i = 20;
+Integer x = i; // internally → Integer.valueOf(i)
+
+Unboxing & Auto-Unboxing (Object → Primitive):
+----------------------------------------------
+1) Unboxing (Manual Conversion):
+Integer num = 20;
+int x = num.intValue();
+2) Auto Unboxing (Automatic by Compiler):
+Integer num = 20;
+int x = num; // internally → num.intValue()
+System.out.println(x);
+	
+Why Wrapper Classes are Needed?
+-> For Collections like List, Set, Map (they store only objects)
+-> For Generics
+-> For Methods requiring Objects
+-> For Utility methods (Integer.parseInt(), Double.valueOf(), etc.)
+-> For providing constants (like Integer.MAX_VALUE, Boolean.TRUE)
+
+1) Collections Framework (List, Set, Map):
+Collections cannot store primitive types — only objects.
+List<Integer> numbers = new ArrayList<>();
+numbers.add(10);   // auto boxing
+numbers.add(20);
+Without wrapper class this is not possible:
+List<int> list; // Compile-time error
+
+2) Generics — only work with objects:
+class Box<T> {
+    T value;
+}
+
+Box<Integer> b = new Box<>();
+Box<int> b2 = new Box<>();  // not allowed
+
+3) Utility Methods (Parsers and Converters):
+String s = "100";
+int x = Integer.parseInt(s);   // String → int
+Integer y = Integer.valueOf(s);// String → Integer
+
+4) Constants and Helper Methods:
+System.out.println(Integer.MIN_VALUE);
+System.out.println(Integer.MAX_VALUE);
+
+Commonly Used Constants in Wrapper Classes:
+-------------------------------------------
+Constance values:
+-----------------
+MAX_VALUE, 
+MIN_VALUE,  
+BYTES, 
+SIZE,
+TYPE,
+POSITIVE_INFINITY -> double
+NEGATIVE_INFINITY -> double
+NAN -> double, float // not a number
+TRUE/FALSE -> Boolean
+
+Helper methods:
+---------------
+1) String to Number Conversion:
+int n = Integer.parseInt("25");
+double d = Double.parseDouble("12.34");
+boolean b = Boolean.parseBoolean("true");
+
+2) Number to String Conversion:
+String s1 = Integer.toString(50);
+String s2 = Double.toString(10.5);
+
+3) Value of (Creates Wrapper Object):
+Integer x = Integer.valueOf(100);
+Double y = Double.valueOf("10.25");
+
+4) Comparing Wrapper Values:
+Integer a = 10, b = 20;
+System.out.println(a.compareTo(b)); // -1 (a < b)
+System.out.println(a.equals(b));    // false
+
+5) Convert to Different Base (Binary 2, Hex 16, Octal 8,):
+System.out.println(Integer.toBinaryString(10)); // 1010
+System.out.println(Integer.toHexString(255));   // ff
+System.out.println(Integer.toOctalString(64));  // 100
+
+6) Checking Range or Property:
+System.out.println(Character.isDigit('5')); 0 - 9   // true
+System.out.println(Character.isLetter('A')); a-z A-Z // true
+System.out.println(Character.isUpperCase('A')); // true
+System.out.println(Character.toLowerCase('A')); // a
+
+Wrapper Class
+-------------
+-> A wrapper class is a class provided in java.lang package that allows primitive values 
+	to be treated as objects.
+-> Wrapper classes are immutable (values cannot be changed)
+-> Auto-boxing/unboxing simplifies code readability
+-> Boxing/unboxing may cause performance overhead if used excessively
+
+Purpose: To convert (wrap) primitive data types into objects 
+	— useful in Collections, Generics, and OOP features.
+	
+	wrapper classes
+	----------------
+	byte - Byte
+	int - Integer
+	short - Short
+	long - Long
+	float - Float
+	double - Double
+	char - Character
+	boolean - Boolean
+
+
+Wrapper class hierarchy
+------------------------
+except character and boolean all the wrapper classes extends 
+Number class, the number class is one of the abstract class
+the abstract methods precented like,
+	> intValue
+	> floatValue
+	> doubleValue
+	> byteValue
+	> shortValue
+	
+Boxing & Auto-Boxing (Primitive → Object):
+------------------------------------------
+1) Boxing (Manual Conversion):
+int i = 10;
+Integer y = Integer.valueOf(i);
+
+2) Auto Boxing (Automatic by Compiler):
+int i = 20;
+Integer x = i; // internally → Integer.valueOf(i)
+
+Unboxing & Auto-Unboxing (Object → Primitive):
+----------------------------------------------
+1) Unboxing (Manual Conversion):
+Integer num = 20;
+int x = num.intValue();
+2) Auto Unboxing (Automatic by Compiler):
+Integer num = 20;
+int x = num; // internally → num.intValue()
+System.out.println(x);
+	
+Why Wrapper Classes are Needed?
+-> For Collections like List, Set, Map (they store only objects)
+-> For Generics
+-> For Methods requiring Objects
+-> For Utility methods (Integer.parseInt(), Double.valueOf(), etc.)
+-> For providing constants (like Integer.MAX_VALUE, Boolean.TRUE)
+
+1) Collections Framework (List, Set, Map):
+Collections cannot store primitive types — only objects.
+List<Integer> numbers = new ArrayList<>();
+numbers.add(10);   // auto boxing
+numbers.add(20);
+Without wrapper class this is not possible:
+List<int> list; // Compile-time error
+
+2) Generics — only work with objects:
+class Box<T> {
+    T value;
+}
+
+Box<Integer> b = new Box<>();
+Box<int> b2 = new Box<>();  // not allowed
+
+3) Utility Methods (Parsers and Converters):
+String s = "100";
+int x = Integer.parseInt(s);   // String → int
+Integer y = Integer.valueOf(s);// String → Integer
+
+4) Constants and Helper Methods:
+System.out.println(Integer.MIN_VALUE);
+System.out.println(Integer.MAX_VALUE);
+
+Commonly Used Constants in Wrapper Classes:
+-------------------------------------------
+Constance values:
+-----------------
+MAX_VALUE, 
+MIN_VALUE,  
+BYTES, 
+SIZE,
+TYPE,
+POSITIVE_INFINITY -> double
+NEGATIVE_INFINITY -> double
+NAN -> double, float // not a number
+TRUE/FALSE -> Boolean
+
+Helper methods:
+---------------
+1) String to Number Conversion:
+int n = Integer.parseInt("25");
+double d = Double.parseDouble("12.34");
+boolean b = Boolean.parseBoolean("true");
+
+2) Number to String Conversion:
+String s1 = Integer.toString(50);
+String s2 = Double.toString(10.5);
+
+3) Value of (Creates Wrapper Object):
+Integer x = Integer.valueOf(100);
+Double y = Double.valueOf("10.25");
+
+4) Comparing Wrapper Values:
+Integer a = 10, b = 20;
+System.out.println(a.compareTo(b)); // -1 (a < b)
+System.out.println(a.equals(b));    // false
+
+5) Convert to Different Base (Binary 2, Hex 16, Octal 8,):
+System.out.println(Integer.toBinaryString(10)); // 1010
+System.out.println(Integer.toHexString(255));   // ff
+System.out.println(Integer.toOctalString(64));  // 100
+
+6) Checking Range or Property:
+System.out.println(Character.isDigit('5')); 0 - 9   // true
+System.out.println(Character.isLetter('A')); a-z A-Z // true
+System.out.println(Character.isUpperCase('A')); // true
+System.out.println(Character.toLowerCase('A')); // a

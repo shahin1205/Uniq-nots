@@ -1,0 +1,64 @@
+Vector (class):
+---------------
+1) What is Vector?
+
+Vector is a growable array similar to ArrayList, but the main difference is:
+
+Thread-safe (synchronized)
+
+Slower than ArrayList due to synchronization
+
+Maintains insertion order
+
+Allows duplicates and null
+
+Part of legacy classes (before Collection Framework — JDK 1.0)
+
+Updated later to implement List
+
+
+2) Internal Working
+Internally Vector uses:
+Object[] elementData;
+Default initial capacity = 10
+When array is full, it grows by double (oldCapacity * 2) (not 1.5 like ArrayList)
+
+3) Constructors
+Vector<Integer> v1 = new Vector<>();         // default size = 10
+Vector<Integer> v2 = new Vector<>(50);       // custom initial size
+Vector<Integer> v3 = new Vector<>(v2);       // copy another collection
+
+ArrayList	-> 50% (It increases by half its current size)
+Vector	    -> 100% (It doubles its current size)
+
+4) Common Methods
+| Method                | Use                      |
+| --------------------- | ------------------------ |
+|  add(E e)             | add at end               |
+|  add(int index, E e)  | insert at position       |
+|  get(int index)       | fetch element            |
+|  remove(...)          | remove element           |
+|  capacity()           | returns current capacity |
+|  trimToSize()         | reduce unused capacity   |
+
+6) When to use Vector?
+
+Use Vector when:
+
+Thread safety is required (multi-threaded environment)
+
+Legacy project uses Vector already
+
+Avoid Vector when:
+
+Working in single-thread → use ArrayList (faster)
+
+Modern concurrent alternatives like CopyOnWriteArrayList exist
+
+7) Vector vs ArrayList:
+| Feature  | Vector              | ArrayList                 |
+| -------- | ------------------- | ----------------------    |
+| Sync     | Yes (thread-safe)   | No (not thread-safe)      | 
+| Speed    | Slower              | Faster                    |
+| Growth   | Doubles             | Grows by 1.5x (50%)       |
+| Use case | Multi-threaded      | Single-threaded           |

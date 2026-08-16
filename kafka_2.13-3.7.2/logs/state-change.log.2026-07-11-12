@@ -1,0 +1,6 @@
+[2026-07-11 12:22:52,196] INFO [Broker id=1] Transitioning 1 partition(s) to local followers. (state.change.logger)
+[2026-07-11 12:22:52,216] INFO [Broker id=1] Follower hospital-topic-0 starts at leader epoch 1 from offset 0 with partition epoch 1 and high watermark 0. Current leader is -1. Previous leader Some(-1) and previous leader epoch was 1. (state.change.logger)
+[2026-07-11 12:22:52,257] INFO [Broker id=1] Stopped fetchers as part of become-follower for 1 partitions (state.change.logger)
+[2026-07-11 12:22:52,265] INFO [Broker id=1] Started fetchers as part of become-follower for 1 partitions (state.change.logger)
+[2026-07-11 12:22:52,529] INFO [Broker id=1] Transitioning 1 partition(s) to local leaders. (state.change.logger)
+[2026-07-11 12:22:52,585] INFO [Broker id=1] Leader hospital-topic-0 with topic id Some(bVSUZbRoRLuKWkcObLrkMQ) starts at leader epoch 2 from offset 0 with partition epoch 2, high watermark 0, ISR [1], adding replicas [] and removing replicas [] . Previous leader Some(-1) and previous leader epoch was 1. (state.change.logger)

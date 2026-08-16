@@ -1,0 +1,69 @@
+TreeSet:
+--------
+TreeSet is a SortedSet implementation in Java that stores unique elements in sorted order.
+
+It uses a balanced tree data structure internally specifically a Red-Black Tree.
+
+Belongs to the package java.util
+
+Introduced in JDK 1.2.
+
+| Feature       | Description                                              |
+| ------------- | -------------------------------------------------------- |
+| Duplicates    |   Not allowed                                            |
+| Null elements |   Not allowed (throws  NullPointerException  in Java 7+) |
+| Order         |   Sorted (ascending by default)                          |
+| Underlying DS |   TreeMap   (Red-Black Tree)                             |
+| Thread-safe   |   Not synchronized                                       |
+| Comparator    | Optional (for custom sorting)                            |
+
+Internal Working:
+-----------------
+1. Natural ordering (Comparable)
+2. Custom ordering (Comparator)
+
+Internal Red-Black Tree Mechanism (Simplified):
+------------------------------------------------
+TreeSet stores elements in a self-balancing binary search tree.
+
+When you insert or remove, the tree automatically balances itself.
+
+This keeps operations like add(), remove(), and contains() efficient (O(log n)).
+
+Constructors:
+-------------
+TreeSet<E> ts = new TreeSet<>();                  // Natural ordering
+TreeSet<E> ts = new TreeSet<>(Comparator);        // Custom order
+TreeSet<E> ts = new TreeSet<>(Collection c);      // From another collection
+TreeSet<E> ts = new TreeSet<>(SortedSet s);       // From another sorted set
+
+Important Methods:
+------------------
+| Method                 | Description                  |
+| ---------------------- | ---------------------------- |
+|  add(E e)              | Adds element in sorted order |
+|  remove(Object o)      | Removes the element          |
+|  contains(Object o)    | Checks existence             |
+|  size()                | Number of elements           |
+|  isEmpty()             | Checks if empty              |
+|  first()               | Returns the lowest element   |
+|  last()                | Returns the highest element  |
+|  higher(E e)           | Element > given element      |
+|  lower(E e)            | Element < given element      |
+|  ceiling(E e)          | Element ≥ given element      |
+|  floor(E e)            | Element ≤ given element      |
+|  headSet(E to)         | Elements < to                |
+|  tailSet(E from)       | Elements ≥ from              |
+|  subSet(E from, E to)  | Elements between range       |
+|  iterator()            | Iterates in ascending order  |
+|  descendingIterator()  | Iterates in descending order |
+
+
+When to Use TreeSet:
+--------------------
+
+Need unique elements
+
+Need elements in sorted order
+
+Don’t need fast (O(1)) operations like HashSet

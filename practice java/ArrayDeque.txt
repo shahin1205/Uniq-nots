@@ -1,0 +1,68 @@
+1) ArrayDeque:
+--------------
+ArrayDeque (Array Double Ended Queue) is a resizable array-based 
+	implementation of the Deque interface.
+
+It can be used as:
+
+Queue -> FIFO (First In, First Out)
+
+Stack -> LIFO (Last In, First Out)
+
+It is faster than Stack and LinkedList for stack/queue operations.
+
+Introduced in Java 1.6
+
+Present in java.util package
+
+No capacity limit (grows automatically)
+
+Not thread-safe
+
+Does not allow null elements
+
+Allows duplicates
+
+Uses circular array internally
+
+When elements are removed/added, the head and tail indices wrap around (circularly).
+
+Automatically resizes (doubles size) when full.
+
+
+Deque<Integer> dq1 = new ArrayDeque<>();      // default capacity = 16
+Deque<String> dq2 = new ArrayDeque<>(50);     // custom initial capacity
+
+2) Important Methods
+| Method                              | Description       |
+| ----------------------------------- | ----------------- |
+|  addFirst(E e)  /  offerFirst(E e)  | insert at front   |
+|  addLast(E e)  /  offerLast(E e)    | insert at end     |
+|  removeFirst()  /  pollFirst()      | remove from front |
+|  removeLast()  /  pollLast()        | remove from end   |
+|  peekFirst()                        | get first element |
+|  peekLast()                         | get last element  |
+
+| Method      | Description           |
+| ----------- | --------------------- |
+|  push(E e)  | same as addFirst()    |
+|  pop()      | same as removeFirst() |
+|  peek()     | same as peekFirst()   |
+
+3) Performance
+
+| Operation                  | Time Complexity | Notes                      |
+| -------------------------- | --------------- | -------------------------- |
+| Insert/remove at head/tail | O(1)            | No shifting like ArrayList |
+| Random access              | Not supported   | No index-based get()       |
+| Resizing                   | O(n) (rare)     | Happens only when full     |
+
+4) When to Use ArrayDeque
+
+Use ArrayDeque when:
+
+You need both stack and queue operations
+
+You want fast insertions/removals from both ends
+
+You don’t need thread-safety

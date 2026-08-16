@@ -1,0 +1,108 @@
+A) Queue (Interface):
+---------------------
+1) What is Queue?
+
+Queue is a Collection type that follows FIFO (First In, First Out).
+
+Example: People standing in line — first person goes first.
+
+Common use cases:
+------------------
+Task scheduling
+
+Printer jobs
+
+Producer-Consumer pattern
+
+Queue does not allow:
+----------------------
+Random access by index
+
+Modifying in the middle
+
+Important Queue methods:
+------------------------
+| Method                 | Purpose                    |
+| ---------------------- | -------------------------- |
+|  add(e)  /  offer(e)   | insert element at tail     |
+|  remove()  /  poll()   | remove head element        |
+|  element()  /  peek()  | read head without removing |
+
+Difference:
+add(), remove(), element() -> throw exception if fail.
+
+offer(), poll(), peek() -> return special value (null/false) instead of exception.
+
+Common Implementations of Queue:
+| Class           | Nature                   | Use case                      |
+| --------------- | ------------------------ | ----------------------------- |
+|  LinkedList     | Normal queue             | General queue operations      |
+|  PriorityQueue  | Sorted based on priority | Highest/lowest priority first |
+|  ArrayDeque     | Faster & re-sizable      | Recommended for queue/stack   |
+
+B) Deque (Interface):
+---------------------
+Deque stands for Double Ended Queue
+You can insert and remove elements from both ends.
+
+It supports both:
+FIFO (Queue)
+LIFO (Stack replacement)
+
+Methods in Deque
+| Operation | Front (Head)                    | Rear (Tail)                   |
+| --------- | ------------------------------- | ----------------------------- |
+| Insert    |  addFirst(e)  /  offerFirst(e)  |  addLast(e)  /  offerLast(e)  |
+| Remove    |  removeFirst()  /  pollFirst()  |  removeLast()  /  pollLast()  |
+| Peek      |  peekFirst()                    |  peekLast()                   |
+
+Common Implementations of Deque:
+
+| Class                   | Feature                     |
+| ----------------------- | --------------------------- |
+|  ArrayDeque             | Fast, recommended           |
+|  LinkedList             | Also implements Deque       |
+|  ConcurrentLinkedDeque  | Thread-safe for concurrency |
+
+
+3) Simple Example: (Queue using LinkedList)
+
+public class QueueDemo {
+    public static void main(String[] args) {
+        Queue<String> q = new LinkedList<>();
+
+        q.offer("A");
+        q.offer("B");
+        q.offer("C");
+
+        System.out.println(q);      // [A, B, C]
+        System.out.println(q.poll()); // A
+        System.out.println(q.peek()); // B
+    }
+}
+
+4) Simple Example: (Deque using ArrayDeque)
+
+public class DequeDemo {
+    public static void main(String[] args) {
+        Deque<Integer> dq = new ArrayDeque<>();
+
+        dq.offerFirst(10);
+        dq.offerLast(20);
+        dq.offerLast(30);
+
+        System.out.println(dq);         // [10, 20, 30]
+        System.out.println(dq.pollLast()); // 30 (LIFO)
+        System.out.println(dq.pollFirst()); // 10 (FIFO)
+    }
+}
+
+5) Which one choose Queue or Deque ?
+
+| Use Case                  | Choose                |
+| ------------------------- | --------------------- |
+| Always FIFO               | Queue                 |
+| Need both FIFO & LIFO     | Deque                 |
+| Replacement for Stack     | Deque (ArrayDeque)    |
+| Priority-based processing | PriorityQueue         |
+| Thread-safe queue         | ConcurrentLinkedQueue |

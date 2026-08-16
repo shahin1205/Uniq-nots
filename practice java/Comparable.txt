@@ -1,0 +1,25 @@
+Comparable Interface (Natural Ordering):
+-----------------------------------------
+Comparable is used when a class defines its own default sorting logic.
+
+| Feature      | Description                                  |
+| ------------ | -------------------------------------------- |
+| Package      |   java.lang                                  |
+| Method       |   compareTo()                                |
+| Sorting Type | Natural (default)                            |
+| Used When    | Class itself defines order                   |
+| Used By      | TreeSet, TreeMap, Collections.sort()         |
+| Example      | String, Integer, Double (already Comparable) |
+
+public interface Comparable<T>
+{
+    int compareTo(T o);
+}
+
+Returning values:
+
+| Value | Meaning                       |
+| ----- | ----------------------------- |
+|  	0   | Both objects are equal        |
+|  -1  	| Current object < given object |
+|   1   | Current object > given object |

@@ -1,0 +1,69 @@
+Stack (class):
+--------------
+1) What is stack ?
+Stack is a legacy class in Java that extends Vector and follows 
+	LIFO (Last In, First Out) order.
+Last inserted element will be removed first.
+
+2) Class Hierarchy ?
+
+Iterable
+ └─ Collection
+     └─ List
+         └─ Vector
+             └─ Stack (extends Vector)
+3) Operations of Stack:
+
+Stack provides 5 main methods:
+
+| Method             | Description                         |
+| ------------------ | ----------------------------------- |
+|  push(E item)      | Insert element on top               |
+|  pop()             | Remove + return top element         |
+|  peek()            | Return top element without removing |
+|  empty()           | Check if stack is empty             |
+|  search(Object o)  | Position from top (1-based index)   |
+
+4) Example:
+
+import java.util.Stack;
+
+public class StackDemo {
+    public static void main(String[] args) {
+        Stack<Integer> stack = new Stack<>();
+
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+
+        System.out.println(stack);      // [10, 20, 30]
+        System.out.println(stack.peek()); // 30
+
+        System.out.println(stack.pop());  // 30
+        System.out.println(stack);        // [10, 20]
+
+        System.out.println(stack.search(10)); // 2 (from top)
+        System.out.println(stack.empty());    // false
+    }
+}
+
+5) Why Stack is not preferred now?
+
+Even though Stack works fine:
+
+It is synchronized (because extends Vector) → slower
+
+Java recommends using Deque (ArrayDeque) instead
+
+Example modern alternative:
+
+Deque<Integer> stack = new ArrayDeque<>();
+stack.push(10);
+stack.push(20);
+stack.pop();
+
+6) When to use Stack?
+
+You need LIFO behaviour Or working on legacy code already using Stack.
+
+Prefer ArrayDeque in new projects.
